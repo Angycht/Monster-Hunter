@@ -33,7 +33,7 @@ public class Monstruo {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="")
+	@JoinColumn(name="id_monstruo", referencedColumnName = "id", insertable = false, updatable = false)
 	private Familia familia;
 
 }

@@ -2,6 +2,8 @@ package com.monster.Monster.Hunter.persistence.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +31,7 @@ public class Familia {
 	@Column(columnDefinition = "TEXT", name = "Descripcion")
 	private String descripcion;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "familia")
+	@JsonIgnore
 	private List<Monstruo> monstruos;
 }
