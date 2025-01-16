@@ -1,5 +1,9 @@
 package com.monster.Monster.Hunter.persistence.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +38,11 @@ public class Monstruo {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="id_monstruo", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name="ID_Familia", referencedColumnName = "ID_Familia", insertable = false, updatable = false)
 	private Familia familia;
+	
+	@OneToMany
+	@JsonIgnore
+	private List<Habitat> habitat;
 
 }

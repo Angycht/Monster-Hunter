@@ -18,7 +18,7 @@ import com.monster.Monster.Hunter.persistence.entities.Monstruo;
 import com.monster.Monster.Hunter.service.MonstruoService;
 
 @RestController
-@RequestMapping("/monstruo")
+@RequestMapping("/monstruos")
 public class MonstruoController {
 
 	
