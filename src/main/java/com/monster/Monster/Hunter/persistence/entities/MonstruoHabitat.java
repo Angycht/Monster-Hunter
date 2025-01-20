@@ -21,7 +21,7 @@ public class MonstruoHabitat {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(columnDefinition = "INT", name = "ID_Monstruo")
 	private int idMonstruo;
-	@Column(columnDefinition = "INT", name = "ID_Material")
-	private int idMaterial;
+	@Column(columnDefinition = "INT", name = "ID_Habitat")
+	private int idHabitat;
 
 }

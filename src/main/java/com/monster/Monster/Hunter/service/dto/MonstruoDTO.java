@@ -18,7 +18,7 @@ public class MonstruoDTO {
 	private int id;
 	private String nombre;
 	private String descripcion;
-	private Familia familia;
+	private String familia;
 	private String partesRompibles;
 	
 	private List<Habitat> habitat;
