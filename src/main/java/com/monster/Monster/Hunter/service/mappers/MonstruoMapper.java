@@ -8,11 +8,10 @@ public class MonstruoMapper {
 	public static MonstruoDTO toDto(Monstruo monstruo) {
 		MonstruoDTO dto = new MonstruoDTO();
 		dto.setId(monstruo.getId());
-		dto.setFamilia(monstruo.getFamilia());
 		dto.setNombre(monstruo.getNombre());
 		dto.setDescripcion(monstruo.getDescripcion());
 		dto.setPartesRompibles(monstruo.getPartesRompibles());
-		dto.setHabitat(monstruo.getHabitat());
+		dto.setFamilia(monstruo.getFamilia().getNombre());
 		/*
 		 * 
 		 * Meter los materiales 
