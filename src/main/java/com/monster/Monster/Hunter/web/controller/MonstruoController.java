@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.monster.Monster.Hunter.persistence.entities.Monstruo;
 import com.monster.Monster.Hunter.service.MonstruoService;
+import com.monster.Monster.Hunter.service.dto.MonstruoDTO;
 
 @RestController
 @RequestMapping("/monstruos")
@@ -26,28 +27,29 @@ public class MonstruoController {
 	@Autowired
 	private MonstruoService monstruoService;
 	
+	
 	@GetMapping
-	public ResponseEntity<List<Monstruo>> listarMonstruos(){
+	public ResponseEntity<List<MonstruoDTO>> listarMonstruos(){
 		return ResponseEntity.ok(this.monstruoService.findAll());
 	}
 	
 	@GetMapping("/{idMonstruo}")
-	public ResponseEntity<Monstruo> getMonstruoById(@PathVariable int idMonstruo){
+	public ResponseEntity<MonstruoDTO> getMonstruoById(@PathVariable int idMonstruo){
 		
 		if(!this.monstruoService.existById(idMonstruo)) {
 			return ResponseEntity.notFound().build();
 		}
 		
-		return ResponseEntity.ok(this.monstruoService.findById(idMonstruo).get());
+		return ResponseEntity.ok(this.monstruoService.findById(idMonstruo));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Monstruo> crearMonstruo(@RequestBody Monstruo monstruo){
-		return new ResponseEntity<Monstruo>(this.monstruoService.create(monstruo), HttpStatus.CREATED);
+	public ResponseEntity<MonstruoDTO> crearMonstruo(@RequestBody Monstruo monstruo){
+		return new ResponseEntity<MonstruoDTO>(this.monstruoService.create(monstruo), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{idMonstruo}")
-	public ResponseEntity<Monstruo> actualizarMonstruo(@PathVariable int idMonstruo,@RequestBody Monstruo monstruo){
+	public ResponseEntity<MonstruoDTO> actualizarMonstruo(@PathVariable int idMonstruo,@RequestBody Monstruo monstruo){
 		if(idMonstruo != monstruo.getId()) {
 			return ResponseEntity.badRequest().build();
 		}

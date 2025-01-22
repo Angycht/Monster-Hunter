@@ -1,13 +1,15 @@
 package com.monster.Monster.Hunter.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.monster.Monster.Hunter.persistence.entities.MonstruoMaterial;
 import com.monster.Monster.Hunter.persistence.repository.MonstruoMaterialRepository;
+import com.monster.Monster.Hunter.service.dto.MonstruoMaterialDTO;
+import com.monster.Monster.Hunter.service.mappers.MonstruoMaterialMapper;
 
 @Service
 public class MonstruoMaterialService {
@@ -16,17 +18,25 @@ public class MonstruoMaterialService {
 	
 	private MonstruoMaterialRepository monstruoMaterialRepository;
 	
-	public List<MonstruoMaterial> findAll(){
-		return this.monstruoMaterialRepository.findAll();
+	public List<MonstruoMaterialDTO> findAll(){
+		
+		List<MonstruoMaterialDTO> monstruoMaterialDTO= new ArrayList<MonstruoMaterialDTO>();
+		for(MonstruoMaterial mm : this.monstruoMaterialRepository.findAll()) {
+			monstruoMaterialDTO.add(MonstruoMaterialMapper.toDto(mm));
+			
+		}
+		
+		return monstruoMaterialDTO;
 	}
-	public Optional<MonstruoMaterial> findById(int idMonstruoMaterial){
-		return this.monstruoMaterialRepository.findById(idMonstruoMaterial);
+	public MonstruoMaterialDTO findById(int idMonstruoMaterial){
+		return MonstruoMaterialMapper.toDto(this.monstruoMaterialRepository.findById(idMonstruoMaterial).get()) ;
 	}
 	public boolean existById(int idMonstruoMaterial) {
 		return this.monstruoMaterialRepository.existsById(idMonstruoMaterial);
 	}
-	public MonstruoMaterial create(MonstruoMaterial monstruoMaterial) {
-		return this.monstruoMaterialRepository.save(monstruoMaterial);
+	public MonstruoMaterialDTO create(MonstruoMaterial monstruoMaterial) {
+		monstruoMaterial=this.monstruoMaterialRepository.save(monstruoMaterial);
+		return MonstruoMaterialMapper.toDto(monstruoMaterial);
 	}
 	public MonstruoMaterial save(MonstruoMaterial monstruoMaterial) {
 		return this.monstruoMaterialRepository.save(monstruoMaterial);

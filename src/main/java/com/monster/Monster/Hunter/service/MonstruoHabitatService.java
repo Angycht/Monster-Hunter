@@ -1,13 +1,15 @@
 package com.monster.Monster.Hunter.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.monster.Monster.Hunter.persistence.entities.MonstruoHabitat;
 import com.monster.Monster.Hunter.persistence.repository.MonstruoHabitatRepository;
+import com.monster.Monster.Hunter.service.dto.MonstruoHabitatDTO;
+import com.monster.Monster.Hunter.service.mappers.MonstruoHabitatMapper;
 
 @Service
 public class MonstruoHabitatService {
@@ -15,17 +17,24 @@ public class MonstruoHabitatService {
 	@Autowired
 	private MonstruoHabitatRepository monstruoHabitatRepository;
 	
-	public List<MonstruoHabitat> findAll(){
-		return this.monstruoHabitatRepository.findAll();
+	public List<MonstruoHabitatDTO> findAll(){
+		
+		List<MonstruoHabitatDTO> monstruoHabitatDTO= new ArrayList<MonstruoHabitatDTO>();
+		
+		for(MonstruoHabitat mh : this.monstruoHabitatRepository.findAll()) {
+			
+			monstruoHabitatDTO.add(MonstruoHabitatMapper.toDto(mh));
+		}
+		return monstruoHabitatDTO;
 	}
-	public Optional<MonstruoHabitat> findById(int idMonstruoHabitat){
-		return this.monstruoHabitatRepository.findById(idMonstruoHabitat);
+	public MonstruoHabitatDTO findById(int idMonstruoHabitat){
+		return MonstruoHabitatMapper.toDto(this.monstruoHabitatRepository.findById(idMonstruoHabitat).get()) ;
 	}
 	public boolean existById(int idMonstruoHabitat) {
 		return this.monstruoHabitatRepository.existsById(idMonstruoHabitat);
 	}
-	public MonstruoHabitat create(MonstruoHabitat monstruoHabitat) {
-		return this.monstruoHabitatRepository.save(monstruoHabitat);
+	public MonstruoHabitatDTO create(MonstruoHabitat monstruoHabitat) {
+		return MonstruoHabitatMapper.toDto(this.monstruoHabitatRepository.save(monstruoHabitat));
 	}
 	public MonstruoHabitat save(MonstruoHabitat monstruoHabitat) {
 		return this.monstruoHabitatRepository.save(monstruoHabitat);

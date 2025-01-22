@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.monster.Monster.Hunter.persistence.entities.MonstruoMaterial;
 import com.monster.Monster.Hunter.service.MonstruoMaterialService;
+import com.monster.Monster.Hunter.service.dto.MonstruoMaterialDTO;
 
 @RestController
 @RequestMapping("/monstruoMaterial")
@@ -25,23 +26,23 @@ public class MonstruoMaterialController {
 	private MonstruoMaterialService monstruoMaterialService;
 	
 	@GetMapping
-	public ResponseEntity<List<MonstruoMaterial>> listarMonstruoMaterial(){
+	public ResponseEntity<List<MonstruoMaterialDTO>> listarMonstruoMaterial(){
 		return ResponseEntity.ok(this.monstruoMaterialService.findAll());
 	}
 	
 	@GetMapping("/{idMonstruoMaterial}")
-	public ResponseEntity<MonstruoMaterial> getMonstruoMaterialById(@PathVariable int idMonstruoMaterial){
+	public ResponseEntity<MonstruoMaterialDTO> getMonstruoMaterialById(@PathVariable int idMonstruoMaterial){
 		
 		if(!this.monstruoMaterialService.existById(idMonstruoMaterial)) {
 			return ResponseEntity.notFound().build();
 		}
 		
-		return ResponseEntity.ok(this.monstruoMaterialService.findById(idMonstruoMaterial).get());
+		return ResponseEntity.ok(this.monstruoMaterialService.findById(idMonstruoMaterial));
 	}
 	
 	@PostMapping
-	public ResponseEntity<MonstruoMaterial> crearMonstruoMaterial(@RequestBody MonstruoMaterial material){
-		return new ResponseEntity<MonstruoMaterial>(this.monstruoMaterialService.create(material), HttpStatus.CREATED);
+	public ResponseEntity<MonstruoMaterialDTO> crearMonstruoMaterial(@RequestBody MonstruoMaterial material){
+		return new ResponseEntity<MonstruoMaterialDTO>(this.monstruoMaterialService.create(material), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{idMonstruoMaterial}")
