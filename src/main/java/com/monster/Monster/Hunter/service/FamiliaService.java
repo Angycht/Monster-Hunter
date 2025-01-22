@@ -40,4 +40,8 @@ public class FamiliaService {
 		return false;
 		
 	}
+	public List<Familia> empiezaPor (String nombre){
+		return this.familiaRepository.findByNombreContaining(nombre);
+	}
+	
 }

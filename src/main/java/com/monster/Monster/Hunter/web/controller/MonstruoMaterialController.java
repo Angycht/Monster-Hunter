@@ -46,7 +46,7 @@ public class MonstruoMaterialController {
 	
 	@PutMapping("/{idMonstruoMaterial}")
 	public ResponseEntity<MonstruoMaterial> actualizarMonstruoMaterial(@PathVariable int idMonstruoMaterial,@RequestBody MonstruoMaterial monstruoMaterial){
-		if(idMonstruoMaterial != monstruoMaterial.getId_material() ) {
+		if(idMonstruoMaterial != monstruoMaterial.getIdMaterial() ) {
 			return ResponseEntity.badRequest().build();
 		}
 		if(!this.monstruoMaterialService.existById(idMonstruoMaterial)) {

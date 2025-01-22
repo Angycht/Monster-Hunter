@@ -1,15 +1,16 @@
 package com.monster.Monster.Hunter.service.mappers;
 
-import com.monster.Monster.Hunter.persistence.entities.Habitat;
+import com.monster.Monster.Hunter.persistence.entities.MonstruoHabitat;
 import com.monster.Monster.Hunter.service.dto.MonstruoHabitatDTO;
 
 public class MonstruoHabitatMapper {
 	
-	public static MonstruoHabitatDTO toDto (Habitat habitat) {
+	public static MonstruoHabitatDTO toDto (MonstruoHabitat mh) {
 		MonstruoHabitatDTO dto= new MonstruoHabitatDTO();
-		dto.setDescripcion(habitat.getDescripcion());
-		dto.setNombre(habitat.getNombre());
-		dto.setImagen(habitat.getImagen());
+		dto.setDescripcion(mh.getHabitat().getDescripcion());
+		dto.setNombre(mh.getHabitat().getNombre());
+		dto.setImagen(mh.getHabitat().getImagen());
+		
 		
 		return dto;
 		

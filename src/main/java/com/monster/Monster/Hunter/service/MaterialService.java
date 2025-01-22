@@ -41,4 +41,8 @@ public class MaterialService {
 		return false;
 		
 	}
+	
+	public List<Material> empiezaPor(String nombre){
+		return this.materialRepository.findByNombreContaining(nombre);
+	}
 }

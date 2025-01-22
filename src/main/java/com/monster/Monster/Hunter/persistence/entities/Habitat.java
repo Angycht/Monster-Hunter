@@ -33,7 +33,7 @@ public class Habitat {
 	private String imagen;
 	
 	
-	@OneToMany
+	@OneToMany(mappedBy= "monstruo")
 	@JsonIgnore
 	private List<Monstruo> monstruos;
 	

@@ -45,4 +45,12 @@ public class MonstruoService {
 		return false;
 
 	}
+	
+	public List<Monstruo> empiezaPor (String nombre){
+		return this.monstruoRepository.findByNombreContaining(nombre);
+		
+		
+	}
+	
+	
 }

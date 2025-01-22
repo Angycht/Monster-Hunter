@@ -40,9 +40,13 @@ public class Monstruo {
 	@ManyToOne
 	@JoinColumn(name="ID_Familia", referencedColumnName = "ID_Familia", insertable = false, updatable = false)
 	private Familia familia;
-	
-	@OneToMany
+
+	@OneToMany(mappedBy = "monstruo")
 	@JsonIgnore
-	private List<Habitat> habitat;
+	private List<MonstruoMaterial> monstruoMaterial;
+	
+	@OneToMany(mappedBy = "habitat")
+	@JsonIgnore
+	private List<MonstruoHabitat> monstruoHabitat;
 
 }
