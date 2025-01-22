@@ -39,5 +39,8 @@ public class HabitatService {
 		return false;
 		
 	}
+	public List<Habitat> empiezaPor (String nombre){
+		return this.habitatRepository.findByNombreContaining(nombre);
+	}
 
 }

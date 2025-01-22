@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.monster.Monster.Hunter.persistence.entities.Monstruo;
@@ -63,5 +64,10 @@ public class MonstruoController {
 		}
 		
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/buscar")
+	public ResponseEntity<List<Monstruo>> buscar(@RequestParam String nombre){
+		return ResponseEntity.ok(this.monstruoService.empiezaPor(nombre));
 	}
 }
