@@ -45,8 +45,8 @@ public class Monstruo {
 	@JsonIgnore
 	private List<MonstruoMaterial> monstruoMaterial;
 	
-	@OneToMany(mappedBy = "habitat")
+	@OneToMany(mappedBy = "monstruo")
 	@JsonIgnore
-	private List<MonstruoHabitat> monstruoHabitat;
+	private List<MonstruoHabitat> monstruoHabitats;
 
 }

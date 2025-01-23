@@ -16,13 +16,14 @@ public class MonstruoMapper {
 		MonstruoDTO dto = new MonstruoDTO();
 		dto.setId(monstruo.getId());
 		dto.setNombre(monstruo.getNombre());
+		dto.setImagen(monstruo.getImagen());
 		dto.setDescripcion(monstruo.getDescripcion());
 		dto.setPartesRompibles(monstruo.getPartesRompibles());
 		dto.setFamilia(monstruo.getFamilia().getNombre());
 
 		List<MonstruoHabitatDTO> monstruoHabitat = new ArrayList<MonstruoHabitatDTO>();
 
-		for (MonstruoHabitat mh : monstruo.getMonstruoHabitat()) {
+		for (MonstruoHabitat mh : monstruo.getMonstruoHabitats()) {
 			monstruoHabitat.add(MonstruoHabitatMapper.toDto(mh));
 		}
 
@@ -34,7 +35,7 @@ public class MonstruoMapper {
 			monstruoMaterial.add(MonstruoMaterialMapper.toDto(mm));
 		}
 
-		dto.setMonstruoHabitatDto(monstruoHabitat);
+		dto.setMonstruoMaterialDto(monstruoMaterial);
 		
 		return dto;
 

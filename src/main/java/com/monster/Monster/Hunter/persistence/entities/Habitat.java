@@ -21,6 +21,7 @@ import lombok.Setter;
 @Table(name="habitat")
 @NoArgsConstructor
 public class Habitat {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(columnDefinition = "INT", name = "ID_Habitat")
@@ -33,9 +34,9 @@ public class Habitat {
 	private String imagen;
 	
 	
-	@OneToMany(mappedBy= "monstruo")
+	@OneToMany(mappedBy= "habitat")
 	@JsonIgnore
-	private List<Monstruo> monstruos;
+	private List<MonstruoHabitat> monstruoHabitats;
 	
 
 }

@@ -1,5 +1,6 @@
 package com.monster.Monster.Hunter.persistence.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,18 +21,20 @@ public class MonstruoMaterial {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idMostruo;
-	
+	private int id;
+	@Column(columnDefinition = "INT", name = "ID_Monstruo")
+	private int idMonstruo;
+	@Column(columnDefinition = "INT", name = "ID_Material")
 	private int idMaterial;
 	
 	private int probabilidad;
 	
 	@ManyToOne
-	@JoinColumn(name = "idMonstruo", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "ID_Monstruo", referencedColumnName = "ID_Monstruo", insertable = false, updatable = false)
 	private Monstruo monstruo;
 	
 	@ManyToOne
-	@JoinColumn(name = "idMaterial", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "ID_Material", referencedColumnName = "ID_Material", insertable = false, updatable = false)
 	private Material material;
 
 }

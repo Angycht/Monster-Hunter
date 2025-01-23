@@ -21,17 +21,18 @@ public class MonstruoHabitat {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	@Column(columnDefinition = "INT", name = "ID_Monstruo")
 	private int idMonstruo;
 	@Column(columnDefinition = "INT", name = "ID_Habitat")
 	private int idHabitat;
 	
 	@ManyToOne
-	@JoinColumn(name = "idMonstruo", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "ID_Monstruo", referencedColumnName = "ID_Monstruo", insertable = false, updatable = false)
 	private Monstruo monstruo;
 	
 	@ManyToOne
-	@JoinColumn(name = "idHabitat", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "ID_Habitat", referencedColumnName = "ID_Habitat", insertable = false, updatable = false)
 	private Habitat habitat;
 
 }

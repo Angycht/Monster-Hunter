@@ -34,7 +34,7 @@ public class Material {
 	private String imagen;
 	
 
-	@OneToMany(mappedBy= "monstruo")
+	@OneToMany(mappedBy= "material")
 	@JsonIgnore
-	private List<Monstruo> monstruos;
+	private List<MonstruoMaterial> monstruoMaterial;
 }

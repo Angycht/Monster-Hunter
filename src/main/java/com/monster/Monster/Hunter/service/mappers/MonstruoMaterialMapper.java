@@ -7,8 +7,9 @@ public class MonstruoMaterialMapper {
 	
 	public static MonstruoMaterialDTO toDto (MonstruoMaterial material) {
 		MonstruoMaterialDTO dto = new MonstruoMaterialDTO();
+		dto.setId(material.getMaterial().getId());
 		dto.setImagen(material.getMaterial().getImagen());
-		dto.setNombre(material.getMaterial().getRareza());
+		dto.setNombre(material.getMaterial().getNombre());
 		dto.setRareza(material.getMaterial().getRareza());
 		return dto;
 	}
