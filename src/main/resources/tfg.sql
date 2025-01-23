@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 01-12-2024 a las 11:15:02
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 23-01-2025 a las 12:29:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -18,113 +18,41 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tfg`
+-- Base de datos: `monster_hunter`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `arma`
+-- Estructura de tabla para la tabla `familia`
 --
 
-CREATE TABLE `arma` (
-  `id` int(11) NOT NULL,
-  `daño` int(11) NOT NULL,
-  `elemento` varchar(255) DEFAULT NULL,
-  `tipo_arma` varchar(255) NOT NULL CHECK (`tipo_arma` in ('Espadas dobles','Ballesta','Katana','Lanza','Arco','Espada grande')),
-  `filo` varchar(255) NOT NULL CHECK (`filo` in ('Rojo','Naranja','Amarillo','Verde','Azul','Blanco'))
+CREATE TABLE `familia` (
+  `ID_Familia` int(11) NOT NULL,
+  `Nombre` varchar(255) NOT NULL,
+  `Descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `arma`
+-- Volcado de datos para la tabla `familia`
 --
 
-INSERT INTO `arma` (`id`, `daño`, `elemento`, `tipo_arma`, `filo`) VALUES
-(1, 720, 'Fuego', 'Espada grande', 'Rojo'),
-(2, 650, 'Rayo', 'Katana', 'Azul'),
-(3, 520, 'No elemental', 'Ballesta', 'Verde'),
-(4, 850, 'Hielo', 'Espadas dobles', 'Blanco'),
-(5, 860, 'Agua', 'Arco', 'Amarillo'),
-(7, 940, 'Fuego', 'Lanza', 'Naranja'),
-(8, 980, 'Dragón', 'Espada grande', 'Verde'),
-(9, 900, 'Rayo', 'Lanza', 'Rojo'),
-(10, 720, 'No elemental', 'Ballesta', 'Azul'),
-(11, 760, 'Fuego', 'Espadas dobles', 'Amarillo'),
-(12, 870, 'Explosión', 'Katana', 'Blanco'),
-(13, 820, 'Explosión', 'Arco', 'Verde'),
-(14, 800, 'Hielo', 'Espadas dobles', 'Blanco'),
-(15, 640, 'Hielo', 'Ballesta', 'Rojo'),
-(16, 950, 'Tierra', 'Espada grande', 'Naranja'),
-(17, 880, 'Tierra', 'Lanza', 'Azul'),
-(18, 750, 'Rayo', 'Arco', 'Amarillo'),
-(19, 870, 'Rayo', 'Espada grande', 'Blanco'),
-(20, 930, 'Agua', 'Katana', 'Verde');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `armadura`
---
-
-CREATE TABLE `armadura` (
-  `id` int(11) NOT NULL,
-  `dureza` int(11) NOT NULL,
-  `parte_cuerpo` varchar(255) NOT NULL CHECK (`parte_cuerpo` in ('Cabeza','Pecho','Brazos','Piernas')),
-  `debilidad` varchar(255) DEFAULT NULL,
-  `elemento_inmune` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `armadura`
---
-
-INSERT INTO `armadura` (`id`, `dureza`, `parte_cuerpo`, `debilidad`, `elemento_inmune`) VALUES
-(2, 150, 'Pecho', 'Hielo', 'Fuego'),
-(4, 180, 'Cabeza', 'Rayo', 'Dragón'),
-(7, 200, 'Brazos', 'Explosión', 'Fuego'),
-(10, 170, 'Piernas', 'Veneno', 'Rayo'),
-(12, 210, 'Pecho', 'Dragón', 'Agua'),
-(14, 140, 'Brazos', 'Agua', 'Fuego'),
-(16, 180, 'Cabeza', 'Hielo', 'Explosión'),
-(18, 200, 'Piernas', 'Veneno', 'Dragón'),
-(20, 220, 'Pecho', 'Fuego', 'Hielo');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `equipamiento`
---
-
-CREATE TABLE `equipamiento` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `tipo` varchar(255) NOT NULL CHECK (`tipo` in ('arma','armadura'))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `equipamiento`
---
-
-INSERT INTO `equipamiento` (`id`, `nombre`, `tipo`) VALUES
-(1, 'Espada Infernal', 'Arma'),
-(2, 'Armadura de Rathalos', 'Armadura'),
-(3, 'Ballesta Ligera', 'Arma'),
-(4, 'Armadura de Nergigante', 'Armadura'),
-(5, 'Arco Coralino', 'Arma'),
-(7, 'Espada del Dragón', 'Arma'),
-(8, 'Armadura de Kirin', 'Armadura'),
-(9, 'Arma Cañón', 'Arma'),
-(10, 'Espada de Velkhana', 'Arma'),
-(11, 'Pistola de Rayo', 'Arma'),
-(12, 'Martillo de Barroth', 'Arma'),
-(13, 'Guadaña de Tigrex', 'Arma'),
-(14, 'Cota de Rajang', 'Armadura'),
-(15, 'Lanza Coralina', 'Arma'),
-(16, 'Espada Ancestral', 'Arma'),
-(17, 'Armadura de Glavenus', 'Armadura'),
-(18, 'Ballesta de Legiana', 'Arma'),
-(19, 'Hacha de Anjanath', 'Arma'),
-(20, 'Armadura de Bazelgeuse', 'Armadura');
+INSERT INTO `familia` (`ID_Familia`, `Nombre`, `Descripcion`) VALUES
+(1, 'Wyverns Voladores', 'Criaturas que poseen alas y pueden volar con facilidad.'),
+(2, 'Wyverns Terrestres', 'Monstruos que se mantienen en el suelo y tienen gran fuerza física.'),
+(3, 'Leviatanes', 'Criaturas acuáticas o semiacuáticas.'),
+(4, 'Dragones Ancianos', 'Seres míticos de gran poder.'),
+(5, 'Bestias Colmilludas', 'Monstruos cuadrúpedos con colmillos prominentes.'),
+(6, 'Neopterons', 'Criaturas insectoides.'),
+(7, 'Fanged Wyverns', 'Monstruos con características de wyvern y colmillos afilados.'),
+(8, 'Wyverns Aves', 'Monstruos pequeños con características similares a aves.'),
+(9, 'Brutal Wyverns', 'Wyverns extremadamente agresivos y robustos.'),
+(10, 'Carapaceons', 'Criaturas con caparazón duro.'),
+(11, 'Piscine Wyverns', 'Wyverns adaptados a la vida acuática.'),
+(12, 'Amphibians', 'Monstruos que pueden vivir tanto en agua como en tierra.'),
+(13, 'Snake Wyverns', 'Criaturas con cuerpos serpentinos.'),
+(14, 'Relict Monsters', 'Criaturas únicas que no encajan en categorías conocidas.'),
+(15, 'Behemoths', 'Criaturas masivas de fuerza colosal.');
 
 -- --------------------------------------------------------
 
@@ -133,35 +61,25 @@ INSERT INTO `equipamiento` (`id`, `nombre`, `tipo`) VALUES
 --
 
 CREATE TABLE `habitat` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL
+  `ID_Habitat` int(11) NOT NULL,
+  `Nombre` varchar(255) NOT NULL,
+  `Descripcion` text DEFAULT NULL,
+  `Imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `habitat`
 --
 
-INSERT INTO `habitat` (`id`, `nombre`) VALUES
-(1, 'Bosque Primigenio'),
-(2, 'Yermos de Agujas'),
-(3, 'Valle Putrefacto'),
-(4, 'Plaga de Elders'),
-(5, 'Coralino'),
-(6, 'Bosques Pantanosos'),
-(7, 'Montañas Heladas'),
-(8, 'Tierras Altas'),
-(9, 'Cavernas de Cristal'),
-(10, 'Costa Tropical'),
-(11, 'Tierra de Fuego'),
-(12, 'Cueva Abisal'),
-(13, 'Llanuras Rocosas'),
-(14, 'Ruinas Antiguas'),
-(15, 'Cimas Nevadas'),
-(16, 'Jungla Inexplorada'),
-(17, 'Meseta Escarpada'),
-(18, 'Marisma Venosa'),
-(19, 'Volcán en Erupción'),
-(20, 'Cielo Abierto');
+INSERT INTO `habitat` (`ID_Habitat`, `Nombre`, `Descripcion`, `Imagen`) VALUES
+(1, 'Bosque Primigenio', 'Un frondoso bosque lleno de fauna y flora.', 'bosque_primigenio.jpg'),
+(2, 'Yermo de Agujas', 'Una vasta extensión desértica con peligros ocultos.', 'yermo_de_agujas.jpg'),
+(3, 'Valle Putrefacto', 'Un valle cubierto de miasma y descomposición.', 'valle_putrefacto.jpg'),
+(4, 'Altiplano Coralino', 'Una cadena montañosa con estructuras de coral.', 'altiplano_coralino.jpg'),
+(5, 'Bosque Antiguo', 'Un bosque antiguo con árboles gigantescos.', 'bosque_antiguo.jpg'),
+(6, 'Bosque de Coral', 'Un bosque de coral con criaturas marinas.', 'bosque_de_coral.jpg'),
+(7, 'Región Volcánica', 'Una región volcánica activa con lava.', 'region_volcanica.jpg'),
+(8, 'Montañas Nevadas', 'Montañas nevadas con temperaturas extremas.', 'montanas_nevadas.jpg');
 
 -- --------------------------------------------------------
 
@@ -170,74 +88,147 @@ INSERT INTO `habitat` (`id`, `nombre`) VALUES
 --
 
 CREATE TABLE `material` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `rareza` int(11) NOT NULL,
-  `descripcion` text DEFAULT NULL
+  `ID_Material` int(11) NOT NULL,
+  `Nombre` varchar(255) NOT NULL,
+  `Rareza` varchar(50) DEFAULT NULL,
+  `Imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `material`
 --
 
-INSERT INTO `material` (`id`, `nombre`, `rareza`, `descripcion`) VALUES
-(1, 'Hueso de Rathalos', 4, 'Hueso resistente de Rathalos, utilizado para la forja de poderosas armas.'),
-(2, 'Piel de Rathalos', 5, 'Piel dura y escamosa del rey de los cielos, ideal para armaduras resistentes.'),
-(3, 'Colmillo de Rathalos', 5, 'Colmillo afilado y peligroso de un Rathalos que se utiliza en la creación de armas.'),
-(4, 'Escama de Rathalos', 4, 'Escama escarlata de Rathalos, clave para la fabricación de equipo de alta calidad.'),
-(5, 'Cola de Rathalos', 6, 'Cola venenosa de Rathalos que se puede usar para crear materiales raros.'),
-(6, 'Colmillo de Diablos', 6, 'Colmillo afilado de Diablos, ideal para forjar armas fuertes y resistentes.'),
-(7, 'Cuerno de Diablos Negro', 6, 'Cuerno raro de un Diablos negro, utilizado en la creación de materiales de gran poder.'),
-(8, 'Escama de Diablos', 5, 'Escama de Diablos, robusta y resistente, esencial para armaduras de alta defensa.'),
-(9, 'Piel de Diablos', 5, 'Piel gruesa y resistente de Diablos, usada para fabricar armaduras fuertes.'),
-(10, 'Hueso de Diablos', 4, 'Hueso grueso de un Diablos, utilizado en la creación de armamento pesado.'),
-(11, 'Cristal de Nergigante', 7, 'Cristal raro extraído de Nergigante, un material esencial para forjar armas poderosas.'),
-(12, 'Escama de Nergigante', 6, 'Escama afilada de Nergigante, extremadamente resistente y útil para armaduras.'),
-(13, 'Colmillo de Nergigante', 6, 'Colmillo imponente de Nergigante, utilizado para fabricar equipo de gran daño.'),
-(14, 'Hueso de Nergigante', 5, 'Hueso muy duro proveniente de Nergigante, utilizado para forjar armas y armaduras de alto nivel.'),
-(15, 'Garras de Nergigante', 5, 'Garras extremadamente afiladas de Nergigante, clave para fabricar armas letales.'),
-(16, 'Caparazón de Zorah Magdaros', 7, 'Caparazón volcánico de Zorah Magdaros, utilizado en la creación de armaduras de gran resistencia.'),
-(17, 'Cola de Zorah Magdaros', 6, 'Cola masiva de Zorah Magdaros, un material muy raro de obtener pero esencial para forjar poderosos equipos.'),
-(18, 'Escama de Zorah Magdaros', 6, 'Escama endurecida de Zorah Magdaros, perfecta para crear armaduras resistentes al fuego.'),
-(19, 'Piel de Zorah Magdaros', 5, 'Piel fundida de Zorah Magdaros, altamente resistente al calor y utilizada en la creación de armaduras especiales.'),
-(20, 'Cristal de Zorah Magdaros', 7, 'Cristal volcánico muy raro de Zorah Magdaros, esencial para la fabricación de equipo avanzado.'),
-(21, 'Cuerno de Kirin', 6, 'Cuerno eléctrico de Kirin, un material codiciado en la forja de armas mágicas.'),
-(22, 'Piel de Kirin', 5, 'Piel suave pero poderosa de Kirin, ideal para fabricar armaduras ligeras.'),
-(23, 'Gema de Kirin', 7, 'Gema brillante de Kirin, contiene poder eléctrico y es utilizada en la creación de materiales raros.'),
-(24, 'Escama de Kirin', 5, 'Escama suave de Kirin, utilizada en la forja de armaduras ligeras y resistentes.'),
-(25, 'Hueso de Kirin', 4, 'Hueso fuerte pero flexible de Kirin, esencial para las primeras etapas de la forja de equipo.'),
-(26, 'Escama de Barroth', 4, 'Escama cubierta de barro de Barroth, fundamental para crear armaduras resistentes a los golpes.'),
-(27, 'Piel de Barroth', 5, 'Piel endurecida de Barroth, excelente para crear armaduras pesadas y duraderas.'),
-(28, 'Cola de Barroth', 6, 'Cola de Barroth, un material pesado que se usa en la creación de armas contundentes.'),
-(29, 'Hueso de Barroth', 5, 'Hueso sólido y fuerte de Barroth, ideal para fabricar armamento pesado y defensivo.'),
-(30, 'Cristal de Barroth', 6, 'Cristales extraídos de Barroth, altamente valorados para la creación de materiales raros.'),
-(31, 'Escama de Legiana', 5, 'Escama de Legiana, usada en la fabricación de armaduras ligeras pero resistentes al frío.'),
-(32, 'Piel de Legiana', 6, 'Piel de Legiana que ofrece gran protección contra el viento y el frío.'),
-(33, 'Cola de Legiana', 6, 'Cola de Legiana, un material ideal para la fabricación de decoraciones y equipos.'),
-(34, 'Hueso de Legiana', 5, 'Hueso duro de Legiana, ideal para crear materiales de forja duraderos.'),
-(35, 'Gema de Legiana', 7, 'Gema rara extraída de Legiana, usada para forjar armas y armaduras excepcionales.'),
-(36, 'Colmillo de Odogaron', 5, 'Colmillo afilado de Odogaron, ideal para crear armas cortantes.'),
-(37, 'Piel de Odogaron', 4, 'Piel flexible de Odogaron, utilizada en la creación de armaduras ágiles.'),
-(38, 'Escama de Odogaron', 5, 'Escama dura y venenosa de Odogaron, utilizada para fabricar armaduras resistentes.'),
-(39, 'Cola de Odogaron', 6, 'Cola venenosa de Odogaron, utilizada para crear materiales raros.'),
-(40, 'Garras de Odogaron', 5, 'Garras afiladas de Odogaron, esenciales para la creación de armas con gran daño.'),
-(41, 'Escama de Anjanath', 4, 'Escama de Anjanath, muy resistente, utilizada en la creación de armaduras pesadas.'),
-(42, 'Piel de Anjanath', 5, 'Piel gruesa de Anjanath, esencial para fabricar armaduras robustas.'),
-(43, 'Colmillo de Anjanath', 6, 'Colmillo de Anjanath, utilizado para crear armas poderosas.'),
-(44, 'Cola de Anjanath', 5, 'Cola de Anjanath, un material versátil usado en la fabricación de armas y armaduras.'),
-(45, 'Garras de Anjanath', 5, 'Garras afiladas de Anjanath, utilizadas para forjar equipo de alto rendimiento.');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `material_equipamiento`
---
-
-CREATE TABLE `material_equipamiento` (
-  `id` int(11) NOT NULL,
-  `material_id` int(11) DEFAULT NULL,
-  `equipamiento_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `material` (`ID_Material`, `Nombre`, `Rareza`, `Imagen`) VALUES
+(1, 'Escama de Rathalos', 'Rara', 'escama_rathalos.png'),
+(2, 'Placa de Rathalos', 'Muy Rara', 'placa_rathalos.png'),
+(3, 'Cola de Rathalos', 'Rara', 'cola_rathalos.png'),
+(4, 'Garra de Rathian', 'Común', 'garra_rathian.png'),
+(5, 'Escama de Rathian', 'Común', 'escama_rathian.png'),
+(6, 'Veneno de Rathian', 'Rara', 'veneno_rathian.png'),
+(7, 'Cuerno de Diablos', 'Rara', 'cuerno_diablos.png'),
+(8, 'Cola de Diablos', 'Muy Rara', 'cola_diablos.png'),
+(9, 'Espina de Barroth', 'Común', 'espina_barroth.png'),
+(10, 'Corteza de Barroth', 'Rara', 'corteza_barroth.png'),
+(11, 'Piedra Dragón', 'Legendaria', 'piedra_dragon.png'),
+(12, 'Colmillo de Zinogre', 'Común', 'colmillo_zinogre.png'),
+(13, 'Electroescama de Zinogre', 'Rara', 'electroescama_zinogre.png'),
+(14, 'Ala de Teostra', 'Muy Rara', 'ala_teostra.png'),
+(15, 'Polvo de Teostra', 'Rara', 'polvo_teostra.png'),
+(16, 'Cuerno de Kushala', 'Muy Rara', 'cuerno_kushala.png'),
+(17, 'Ala de Kushala', 'Rara', 'ala_kushala.png'),
+(18, 'Colmillo de Rajang', 'Rara', 'colmillo_rajang.png'),
+(19, 'Pelo Dorado de Rajang', 'Muy Rara', 'pelo_dorado_rajang.png'),
+(20, 'Piel de Mizutsune', 'Rara', 'piel_mizutsune.png'),
+(21, 'Burbuja de Mizutsune', 'Común', 'burbuja_mizutsune.png'),
+(22, 'Cola de Lagiacrus', 'Muy Rara', 'cola_lagiacrus.png'),
+(23, 'Cristal de Lagiacrus', 'Rara', 'cristal_lagiacrus.png'),
+(24, 'Caparazón de Hermitaur', 'Común', 'caparazon_hermitaur.png'),
+(25, 'Pinza de Hermitaur', 'Rara', 'pinza_hermitaur.png'),
+(26, 'Hueso Antiguo', 'Común', 'hueso_antiguo.png'),
+(27, 'Escama de Pukei-Pukei', 'Común', 'escama_pukei_pukei.png'),
+(28, 'Cola de Pukei-Pukei', 'Rara', 'cola_pukei_pukei.png'),
+(29, 'Escama de Rathalos Azure', 'Rara', 'escama_rathalos_azure.png'),
+(30, 'Garra de Rathalos Azure', 'Muy Rara', 'garra_rathalos_azure.png'),
+(31, 'Pico de Kulu-Ya-Ku', 'Común', 'pico_kulu_ya_ku.png'),
+(32, 'Hueso Macizo', 'Común', 'hueso_macizo.png'),
+(33, 'Colmillo de Anjanath', 'Rara', 'colmillo_anjanath.png'),
+(34, 'Piel de Anjanath', 'Común', 'piel_anjanath.png'),
+(35, 'Colmillo de Odogaron', 'Rara', 'colmillo_odogaron.png'),
+(36, 'Piel Sangrienta de Odogaron', 'Muy Rara', 'piel_sangrienta_odogaron.png'),
+(37, 'Ala de Rathian Rosa', 'Muy Rara', 'ala_rathian_rosa.png'),
+(38, 'Placa de Rathian Rosa', 'Rara', 'placa_rathian_rosa.png'),
+(39, 'Garra de Barioth', 'Rara', 'garra_barioth.png'),
+(40, 'Cola de Barioth', 'Rara', 'cola_barioth.png'),
+(41, 'Espina de Nargacuga', 'Muy Rara', 'espina_nargacuga.png'),
+(42, 'Piel de Nargacuga', 'Rara', 'piel_nargacuga.png'),
+(43, 'Caparazón de Gravios', 'Común', 'caparazon_gravios.png'),
+(44, 'Gema de Gravios', 'Muy Rara', 'gema_gravios.png'),
+(45, 'Escama de Basarios', 'Común', 'escama_basarios.png'),
+(46, 'Colmillo de Basarios', 'Rara', 'colmillo_basarios.png'),
+(47, 'Carapacho de Duramboros', 'Rara', 'carapacho_duramboros.png'),
+(48, 'Cuerno de Duramboros', 'Muy Rara', 'cuerno_duramboros.png'),
+(49, 'Escama de Glavenus', 'Rara', 'escama_glavenus.png'),
+(50, 'Cola de Glavenus', 'Muy Rara', 'cola_glavenus.png'),
+(51, 'Ala de Rathian Dorada', 'Legendaria', 'ala_rathian_dorada.png'),
+(52, 'Cola de Rathian Dorada', 'Muy Rara', 'cola_rathian_dorada.png'),
+(53, 'Pelo de Kirin', 'Muy Rara', 'pelo_kirin.png'),
+(54, 'Cuerno de Kirin', 'Legendaria', 'cuerno_kirin.png'),
+(55, 'Placa de Teostra', 'Legendaria', 'placa_teostra.png'),
+(56, 'Gema de Teostra', 'Muy Rara', 'gema_teostra.png'),
+(57, 'Escama de Zinogre', 'Común', 'escama_zinogre.png'),
+(58, 'Espina de Zinogre', 'Rara', 'espina_zinogre.png'),
+(59, 'Cola de Deviljho', 'Rara', 'cola_deviljho.png'),
+(60, 'Garra de Deviljho', 'Muy Rara', 'garra_deviljho.png'),
+(61, 'Piel de Great Jagras', 'Común', 'piel_great_jagras.png'),
+(62, 'Cola de Great Jagras', 'Rara', 'cola_great_jagras.png'),
+(63, 'Hueso de Wyvern', 'Común', 'hueso_wyvern.png'),
+(64, 'Cristal de Agua', 'Rara', 'cristal_agua.png'),
+(65, 'Escama de Jyuratodus', 'Común', 'escama_jyuratodus.png'),
+(66, 'Espina de Jyuratodus', 'Rara', 'espina_jyuratodus.png'),
+(67, 'Ala de Rathian Verde', 'Rara', 'ala_rathian_verde.png'),
+(68, 'Cola de Rathian Verde', 'Muy Rara', 'cola_rathian_verde.png'),
+(69, 'Pico de Qurupeco', 'Común', 'pico_qurupeco.png'),
+(70, 'Piel de Plesioth', 'Común', 'piel_plesioth.png'),
+(71, 'Colmillo de Hermitaur', 'Común', 'colmillo_hermitaur.png'),
+(72, 'Gema de Hermitaur', 'Rara', 'gema_hermitaur.png'),
+(73, 'Caparazón de Shogun Ceanataur', 'Común', 'caparazon_shogun.png'),
+(74, 'Espina de Shogun Ceanataur', 'Rara', 'espina_shogun.png'),
+(75, 'Escama de Tetsucabra', 'Común', 'escama_tetsucabra.png'),
+(76, 'Mandíbula de Tetsucabra', 'Rara', 'mandibula_tetsucabra.png'),
+(77, 'Piel de Zamtrios', 'Común', 'piel_zamtrios.png'),
+(78, 'Cola de Zamtrios', 'Rara', 'cola_zamtrios.png'),
+(79, 'Espina de Najarala', 'Rara', 'espina_najarala.png'),
+(80, 'Piel Escamosa de Najarala', 'Común', 'piel_najarala.png'),
+(81, 'Cola de Dahren Mohran', 'Muy Rara', 'cola_dahren_mohran.png'),
+(82, 'Cuerno Gigante de Dahren', 'Legendaria', 'cuerno_gigante_dahren.png'),
+(83, 'Cristal de Behemoth', 'Legendaria', 'cristal_behemoth.png'),
+(84, 'Piel de Behemoth', 'Rara', 'piel_behemoth.png'),
+(85, 'Colmillo de Fatalis', 'Legendaria', 'colmillo_fatalis.png'),
+(86, 'Ala de Fatalis', 'Muy Rara', 'ala_fatalis.png'),
+(87, 'Escama de Great Jagras', 'Común', 'escama_great_jagras.png'),
+(88, 'Gema de Great Jagras', 'Rara', 'gema_great_jagras.png'),
+(89, 'Cola de Rathalos Plateado', 'Muy Rara', 'cola_rathalos_plateado.png'),
+(90, 'Placa de Rathalos Plateado', 'Rara', 'placa_rathalos_plateado.png'),
+(91, 'Cola de Anjanath', 'Rara', 'cola_anjanath.png'),
+(92, 'Placa de Anjanath', 'Muy Rara', 'placa_anjanath.png'),
+(93, 'Escama de Uragaan', 'Común', 'escama_uragaan.png'),
+(94, 'Cola de Uragaan', 'Rara', 'cola_uragaan.png'),
+(95, 'Garra de Rajang', 'Muy Rara', 'garra_rajang.png'),
+(96, 'Cristal de Rajang', 'Legendaria', 'cristal_rajang.png'),
+(97, 'Ala de Kushala Daora', 'Rara', 'ala_kushala_daora.png'),
+(98, 'Gema de Kushala Daora', 'Muy Rara', 'gema_kushala_daora.png'),
+(99, 'Cola de Teostra', 'Muy Rara', 'cola_teostra.png'),
+(100, 'Placa de Teostra', 'Legendaria', 'placa_teostra.png'),
+(101, 'Piel de Mizutsune', 'Rara', 'piel_mizutsune_extra.png'),
+(102, 'Gema de Mizutsune', 'Muy Rara', 'gema_mizutsune.png'),
+(103, 'Ala de Rathian', 'Rara', 'ala_rathian.png'),
+(104, 'Gema de Rathian', 'Muy Rara', 'gema_rathian.png'),
+(105, 'Colmillo de Pukei-Pukei', 'Común', 'colmillo_pukei_pukei.png'),
+(106, 'Pluma de Pukei-Pukei', 'Rara', 'pluma_pukei_pukei.png'),
+(107, 'Escama de Jyuratodus', 'Común', 'escama_jyuratodus_extra.png'),
+(108, 'Cola de Jyuratodus', 'Rara', 'cola_jyuratodus.png'),
+(109, 'Espina de Lavasioth', 'Rara', 'espina_lavasioth.png'),
+(110, 'Piel de Lavasioth', 'Común', 'piel_lavasioth.png'),
+(111, 'Pico de Kulu-Ya-Ku', 'Común', 'pico_kulu_ya_ku_extra.png'),
+(112, 'Hueso Duro de Kulu-Ya-Ku', 'Rara', 'hueso_duro_kulu_ya_ku.png'),
+(113, 'Escama de Barroth', 'Común', 'escama_barroth.png'),
+(114, 'Garra de Barroth', 'Rara', 'garra_barroth.png'),
+(115, 'Cola de Diablos Negra', 'Muy Rara', 'cola_diablos_negra.png'),
+(116, 'Cuerno de Diablos Negra', 'Legendaria', 'cuerno_diablos_negra.png'),
+(117, 'Piel de Basarios', 'Común', 'piel_basarios_extra.png'),
+(118, 'Gema de Basarios', 'Rara', 'gema_basarios_extra.png'),
+(119, 'Colmillo de Zinogre', 'Rara', 'colmillo_zinogre_extra.png'),
+(120, 'Placa de Zinogre', 'Muy Rara', 'placa_zinogre.png'),
+(121, 'Piel de Deviljho', 'Rara', 'piel_deviljho.png'),
+(122, 'Cristal de Deviljho', 'Legendaria', 'cristal_deviljho.png'),
+(123, 'Placa de Rathalos', 'Muy Rara', 'placa_rathalos_extra.png'),
+(124, 'Cuerno de Rathalos', 'Rara', 'cuerno_rathalos.png'),
+(125, 'Escama de Hermitaur', 'Común', 'escama_hermitaur_extra.png'),
+(126, 'Pinza de Hermitaur', 'Rara', 'pinza_hermitaur_extra.png'),
+(127, 'Ala de Rathian', 'Rara', 'ala_rathian_extra.png'),
+(128, 'Garra de Rathian', 'Muy Rara', 'garra_rathian_extra.png'),
+(129, 'Espina de Zinogre', 'Rara', 'espina_zinogre_extra.png'),
+(130, 'Piel de Rathian', 'Común', 'piel_rathian_extra.png');
 
 -- --------------------------------------------------------
 
@@ -246,40 +237,122 @@ CREATE TABLE `material_equipamiento` (
 --
 
 CREATE TABLE `monstruo` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `elemento` varchar(255) DEFAULT NULL,
-  `debilidad` varchar(255) DEFAULT NULL,
-  `rango` varchar(255) DEFAULT NULL,
-  `rareza` int(11) DEFAULT NULL,
-  `habitat_id` int(11) DEFAULT NULL
+  `ID_Monstruo` int(11) NOT NULL,
+  `Nombre` varchar(255) NOT NULL,
+  `Descripcion` text NOT NULL,
+  `Imagen` varchar(255) DEFAULT NULL,
+  `Partes_Rompibles` varchar(255) DEFAULT NULL,
+  `ID_Familia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `monstruo`
 --
 
-INSERT INTO `monstruo` (`id`, `nombre`, `elemento`, `debilidad`, `rango`, `rareza`, `habitat_id`) VALUES
-(1, 'Rathalos', 'Fuego', 'Dragón', 'Alto', 5, 1),
-(2, 'Diablos', 'No elemental', 'Hielo', 'Bajo', 6, 2),
-(3, 'Nergigante', 'No elemental', 'Rayo', 'Alto', 7, 3),
-(4, 'Zorah Magdaros', 'Fuego', 'Agua', 'Alto', 8, 4),
-(5, 'Kirin', 'Rayo', 'Fuego', 'Alto', 6, 5),
-(6, 'Pukei-Pukei', 'Veneno', 'Hielo', 'Bajo', 3, 6),
-(7, 'Legiana', 'Hielo', 'Fuego', 'Alto', 5, 3),
-(8, 'Odogaron', 'No elemental', 'Rayo', 'Alto', 4, 2),
-(9, 'Bazelgeuse', 'Explosión', 'Hielo', 'Alto', 6, 4),
-(10, 'Anjanath', 'Fuego', 'Agua', 'Bajo', 4, 1),
-(11, 'Barroth', 'No elemental', 'Fuego', 'Bajo', 3, 2),
-(12, 'Glavenus', 'Fuego', 'Agua', 'Alto', 7, 2),
-(13, 'Tigrex', 'No elemental', 'Hielo', 'Alto', 6, 3),
-(14, 'Nargacuga', 'No elemental', 'Rayo', 'Alto', 5, 2),
-(15, 'Rajang', 'Rayo', 'Hielo', 'Alto', 7, 5),
-(16, 'Gravios', 'Fuego', 'Agua', 'Alto', 6, 1),
-(17, 'Velkhana', 'Hielo', 'Fuego', 'Alto', 8, 4),
-(18, 'Alatreon', 'Todos', 'Ninguno', 'Máximo', 10, 6),
-(19, 'Xeno’jiiva', 'Dragón', 'Rayo', 'Máximo', 10, 4),
-(20, 'Lunastra', 'Fuego', 'Agua', 'Alto', 9, 3);
+INSERT INTO `monstruo` (`ID_Monstruo`, `Nombre`, `Descripcion`, `Imagen`, `Partes_Rompibles`, `ID_Familia`) VALUES
+(1, 'Rathalos', 'El Rey de los Cielos, un wyvern volador emblemático.', 'rathalos.png', 'Cabeza, Alas, Cola', 1),
+(2, 'Rathian', 'La Reina de los Cielos, pareja del Rathalos.', 'rathian.png', 'Cabeza, Alas, Cola', 1),
+(3, 'Diablos', 'Un wyvern terrestre que habita en desiertos.', 'diablos.png', 'Cuernos, Alas, Cola', 2),
+(4, 'Barroth', 'Wyvern terrestre que se cubre de barro.', 'barroth.png', 'Cabeza, Brazos', 2),
+(5, 'Lagiacrus', 'Un leviatán que domina los mares.', 'lagiacrus.png', 'Espalda, Cola', 3),
+(6, 'Mizutsune', 'Leviatán elegante que usa burbujas.', 'mizutsune.png', 'Cabeza, Cola', 3),
+(7, 'Kushala Daora', 'Dragón anciano con control sobre el viento.', 'kushala_daora.png', 'Cabeza, Alas', 4),
+(8, 'Teostra', 'Dragón anciano envuelto en llamas.', 'teostra.png', 'Cabeza, Alas, Cola', 4),
+(9, 'Zinogre', 'Bestia colmilluda que usa electricidad.', 'zinogre.png', 'Espalda, Cola', 5),
+(10, 'Rajang', 'Bestia colmilluda de fuerza descomunal.', 'rajang.png', 'Cuernos, Cola', 5),
+(11, 'Nerscylla', 'Neopteron con habilidades venenosas.', 'nerscylla.png', 'Cabeza, Abdomen', 6),
+(12, 'Seltas Queen', 'Neopteron con una forma imponente.', 'seltas_queen.png', 'Cabeza, Cola', 6),
+(13, 'Odogaron', 'Fanged wyvern extremadamente ágil.', 'odogaron.png', 'Cabeza, Cola', 7),
+(14, 'Tobi-Kadachi', 'Wyvern colmillo que almacena electricidad.', 'tobi_kadachi.png', 'Cabeza, Cola', 7),
+(15, 'Kulu-Ya-Ku', 'Wyvern ave que usa herramientas.', 'kulu_ya_ku.png', 'Cabeza', 8),
+(16, 'Pukei-Pukei', 'Wyvern ave con habilidades venenosas.', 'pukei_pukei.png', 'Cabeza, Alas, Cola', 8),
+(17, 'Anjanath', 'Brutal wyvern con fuego.', 'anjanath.png', 'Cabeza, Espalda, Cola', 9),
+(18, 'Uragaan', 'Wyvern brutal con armadura rocosa.', 'uragaan.png', 'Cabeza, Espalda', 9),
+(19, 'Hermitaur', 'Carapaceon que vive en playas.', 'hermitaur.png', 'Caparazón, Pinzas', 10),
+(20, 'Shogun Ceanataur', 'Carapaceon con pinzas letales.', 'shogun_ceanataur.png', 'Caparazón, Pinzas', 10),
+(21, 'Jyuratodus', 'Piscine wyvern que vive en barro.', 'jyuratodus.png', 'Cabeza, Cola', 11),
+(22, 'Lavasioth', 'Piscine wyvern que vive en lava.', 'lavasioth.png', 'Cabeza, Cola', 11),
+(23, 'Tetsucabra', 'Amphibian con mandíbulas fuertes.', 'tetsucabra.png', 'Cabeza', 12),
+(24, 'Zamtrios', 'Amphibian con habilidades congelantes.', 'zamtrios.png', 'Cabeza, Cola', 12),
+(25, 'Najarala', 'Snake wyvern con habilidades sónicas.', 'najarala.png', 'Cabeza, Cola', 13),
+(26, 'Dahren Mohran', 'Relict monster colosal.', 'dahren_mohran.png', 'Cabeza, Abdomen', 14),
+(27, 'Behemoth', 'Criatura masiva de otro mundo.', 'behemoth.png', 'Cabeza, Cola', 15),
+(28, 'Fatalis', 'Dragón anciano legendario.', 'fatalis.png', 'Cabeza, Alas, Cola', 4),
+(29, 'Velkhana', 'Dragón anciano con control del hielo.', 'velkhana.png', 'Cabeza, Alas, Cola', 4),
+(30, 'Bazelgeuse', 'Wyvern volador que lanza explosivos.', 'bazelgeuse.png', 'Cabeza, Alas, Cola', 1),
+(31, 'Great Jagras', 'Un wyvern que se traga presas enteras para fortalecer su cuerpo.', 'great_jagras.png', 'Cabeza, Cola', 2),
+(32, 'Aptonoth', 'Un herbívoro dócil que sirve de presa a los depredadores.', 'aptonoth.png', '', 2),
+(33, 'Zorah Magdaros', 'Un dragón anciano del tamaño de una montaña en llamas.', 'zorah_magdaros.png', 'Cabeza, Caparazón', 4),
+(34, 'Tigrex', 'Un wyvern volador agresivo con una gran fuerza física.', 'tigrex.png', 'Cabeza, Alas, Cola', 1),
+(35, 'Nargacuga', 'Un wyvern volador ágil y silencioso con cola mortal.', 'nargacuga.png', 'Cabeza, Alas, Cola', 1),
+(36, 'Khezu', 'Un wyvern volador ciego que caza en cuevas.', 'khezu.png', 'Cabeza, Ala', 1),
+(37, 'Glavenus', 'Un brutal wyvern con una cola en forma de cuchilla.', 'glavenus.png', 'Cabeza, Cola', 9),
+(38, 'Duramboros', 'Un brutal wyvern herbívoro con un cuerpo enorme.', 'duramboros.png', 'Cabeza, Espalda', 9),
+(39, 'Gigginox', 'Un wyvern volador venenoso que se camufla en cuevas oscuras.', 'gigginox.png', 'Cabeza, Alas', 1),
+(40, 'Akantor', 'Un brutal wyvern conocido como el \"Coloso Negro\".', 'akantor.png', 'Cabeza, Cola', 9),
+(41, 'Ukanlos', 'Un brutal wyvern que habita en zonas nevadas.', 'ukanlos.png', 'Cabeza, Cola', 9),
+(42, 'Ludroth Real', 'Un leviatán que usa su melena húmeda para atacar.', 'ludroth_real.png', 'Cabeza, Espalda', 3),
+(43, 'Agnaktor', 'Un leviatán que excava a través de la lava.', 'agnaktor.png', 'Cabeza, Cola', 3),
+(44, 'Barioth', 'Un wyvern volador adaptado al hielo.', 'barioth.png', 'Cabeza, Alas, Cola', 1),
+(45, 'Gigginox Subspecies', 'Variante del Gigginox, más venenoso y agresivo.', 'gigginox_subspecies.png', 'Cabeza, Alas', 1),
+(46, 'Congalala', 'Una bestia colmilluda conocida por su mal olor.', 'congalala.png', 'Cabeza, Cola', 5),
+(47, 'Blangonga', 'Una bestia colmilluda que lidera manadas en la nieve.', 'blangonga.png', 'Cabeza, Cola', 5),
+(48, 'Kirin', 'Un dragón anciano parecido a un unicornio.', 'kirin.png', 'Cuerno', 4),
+(49, 'Chameleos', 'Un dragón anciano con habilidades de camuflaje.', 'chameleos.png', 'Cabeza, Cola', 4),
+(50, 'Rathalos Azure', 'Una variante de Rathalos con un color azul brillante.', 'rathalos_azure.png', 'Cabeza, Alas, Cola', 1),
+(51, 'Rathian Pink', 'Una variante de Rathian con un color rosado.', 'rathian_pink.png', 'Cabeza, Alas, Cola', 1),
+(52, 'Deviljho', 'Un brutal wyvern extremadamente agresivo y siempre hambriento.', 'deviljho.png', 'Cabeza, Cola', 9),
+(53, 'Cephadrome', 'Un piscine wyvern que habita en los desiertos.', 'cephadrome.png', 'Cabeza, Cola', 11),
+(54, 'Plesioth', 'Un piscine wyvern que caza en el agua.', 'plesioth.png', 'Cabeza, Cola', 11),
+(55, 'Qurupeco', 'Un wyvern ave que puede imitar los sonidos de otros monstruos.', 'qurupeco.png', 'Cabeza, Alas', 8),
+(56, 'Lagombi', 'Un anfibio rápido adaptado a zonas nevadas.', 'lagombi.png', 'Cabeza', 12),
+(57, 'Kecha Wacha', 'Un anfibio que usa sus garras para balancearse entre los árboles.', 'kecha_wacha.png', 'Cabeza, Brazos', 12),
+(58, 'Nibelsnarf', 'Un piscine wyvern que embosca a sus presas desde la arena.', 'nibelsnarf.png', 'Cabeza, Cola', 11),
+(59, 'Basarios', 'Un wyvern terrestre cubierto de roca.', 'basarios.png', 'Cabeza, Espalda', 2),
+(60, 'Gravios', 'Un wyvern terrestre que exhala gas explosivo.', 'gravios.png', 'Cabeza, Espalda', 2),
+(61, 'Iodrome', 'Un wyvern ave líder de una manada venenosa.', 'iodrome.png', 'Cabeza', 8),
+(62, 'Velocidrome', 'Un wyvern ave rápido que lidera una manada.', 'velocidrome.png', 'Cabeza', 8),
+(63, 'Great Jaggi', 'Un wyvern ave líder de una manada pequeña.', 'great_jaggi.png', 'Cabeza', 8),
+(64, 'Zamite', 'Una criatura acuática joven que se convierte en Zamtrios.', 'zamite.png', '', 12),
+(65, 'Arzuros', 'Una bestia colmilluda que recolecta miel.', 'arzuros.png', 'Cabeza', 5),
+(66, 'Volvidon', 'Una bestia colmilluda con un caparazón robusto.', 'volvidon.png', 'Cabeza, Espalda', 5),
+(67, 'Brachydios', 'Un brutal wyvern que usa baba explosiva.', 'brachydios.png', 'Cabeza, Brazos, Cola', 9),
+(68, 'Gore Magala', 'Un wyvern negro que propaga el virus Frenzy.', 'gore_magala.png', 'Cabeza, Alas, Cola', 4),
+(69, 'Seregios', 'Un wyvern volador con escamas afiladas como cuchillas.', 'seregios.png', 'Cabeza, Alas, Cola', 1),
+(70, 'Rajang Furioso', 'Una versión aún más peligrosa del Rajang.', 'rajang_furioso.png', 'Cuernos, Cola', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `monstruo_habitat`
+--
+
+CREATE TABLE `monstruo_habitat` (
+  `id` int(11) NOT NULL,
+  `ID_Monstruo` int(11) DEFAULT NULL,
+  `ID_Habitat` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `monstruo_habitat`
+--
+
+INSERT INTO `monstruo_habitat` (`id`, `ID_Monstruo`, `ID_Habitat`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 2),
+(4, 4, 2),
+(5, 5, 3),
+(6, 6, 3),
+(7, 7, 4),
+(8, 8, 4),
+(9, 9, 5),
+(10, 10, 5),
+(11, 11, 6),
+(12, 12, 6),
+(13, 13, 7),
+(14, 14, 7),
+(15, 15, 8);
 
 -- --------------------------------------------------------
 
@@ -289,193 +362,132 @@ INSERT INTO `monstruo` (`id`, `nombre`, `elemento`, `debilidad`, `rango`, `rarez
 
 CREATE TABLE `monstruo_material` (
   `id` int(11) NOT NULL,
-  `monstruo_id` int(11) DEFAULT NULL,
-  `material_id` int(11) DEFAULT NULL
+  `ID_Monstruo` int(11) DEFAULT NULL,
+  `ID_Material` int(11) DEFAULT NULL,
+  `probabilidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `monstruo_material`
 --
 
-INSERT INTO `monstruo_material` (`id`, `monstruo_id`, `material_id`) VALUES
-(60, 1, 1),
-(61, 1, 2),
-(62, 1, 3),
-(63, 1, 4),
-(64, 1, 5),
-(65, 2, 6),
-(66, 2, 7),
-(67, 2, 8),
-(68, 2, 9),
-(69, 2, 10),
-(70, 3, 11),
-(71, 3, 12),
-(72, 3, 13),
-(73, 3, 14),
-(74, 3, 15),
-(75, 4, 16),
-(76, 4, 17),
-(77, 4, 18),
-(78, 4, 19),
-(79, 4, 20),
-(80, 5, 21),
-(81, 5, 22),
-(82, 5, 23),
-(83, 5, 24),
-(84, 5, 25),
-(85, 6, 26),
-(86, 6, 27),
-(87, 6, 28),
-(88, 6, 29),
-(89, 6, 30),
-(90, 7, 31),
-(91, 7, 32),
-(92, 7, 33),
-(93, 7, 34),
-(94, 7, 35),
-(95, 8, 36),
-(96, 8, 37),
-(97, 8, 38),
-(98, 8, 39),
-(99, 8, 40),
-(100, 9, 41),
-(101, 9, 42),
-(102, 9, 43),
-(103, 9, 44),
-(104, 9, 45);
+INSERT INTO `monstruo_material` (`id`, `ID_Monstruo`, `ID_Material`, `probabilidad`) VALUES
+(1, 1, 1, 0),
+(2, 1, 2, 0),
+(3, 1, 3, 0),
+(4, 2, 4, 0),
+(5, 2, 5, 0),
+(6, 2, 6, 0),
+(7, 3, 7, 0),
+(8, 3, 8, 0),
+(9, 4, 9, 0),
+(10, 4, 10, 0),
+(11, 5, 11, 0),
+(12, 5, 12, 0),
+(13, 6, 13, 0),
+(14, 6, 14, 0),
+(15, 7, 15, 0),
+(16, 7, 16, 0),
+(17, 8, 17, 0),
+(18, 8, 18, 0),
+(19, 9, 19, 0),
+(20, 9, 20, 0),
+(21, 10, 21, 0),
+(22, 10, 22, 0),
+(23, 11, 23, 0),
+(24, 11, 24, 0),
+(25, 12, 25, 0),
+(26, 12, 26, 0),
+(27, 13, 27, 0),
+(28, 13, 28, 0),
+(29, 14, 29, 0),
+(30, 14, 30, 0),
+(31, 15, 31, 0);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `arma`
+-- Indices de la tabla `familia`
 --
-ALTER TABLE `arma`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `armadura`
---
-ALTER TABLE `armadura`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `equipamiento`
---
-ALTER TABLE `equipamiento`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `familia`
+  ADD PRIMARY KEY (`ID_Familia`);
 
 --
 -- Indices de la tabla `habitat`
 --
 ALTER TABLE `habitat`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`ID_Habitat`);
 
 --
 -- Indices de la tabla `material`
 --
 ALTER TABLE `material`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `material_equipamiento`
---
-ALTER TABLE `material_equipamiento`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `material_id` (`material_id`),
-  ADD KEY `equipamiento_id` (`equipamiento_id`);
+  ADD PRIMARY KEY (`ID_Material`);
 
 --
 -- Indices de la tabla `monstruo`
 --
 ALTER TABLE `monstruo`
+  ADD PRIMARY KEY (`ID_Monstruo`),
+  ADD KEY `ID_Familia` (`ID_Familia`);
+
+--
+-- Indices de la tabla `monstruo_habitat`
+--
+ALTER TABLE `monstruo_habitat`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `habitat_id` (`habitat_id`);
+  ADD KEY `ID_Monstruo` (`ID_Monstruo`),
+  ADD KEY `ID_Habitat` (`ID_Habitat`);
 
 --
 -- Indices de la tabla `monstruo_material`
 --
 ALTER TABLE `monstruo_material`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `monstruo_id` (`monstruo_id`),
-  ADD KEY `material_id` (`material_id`);
+  ADD KEY `monstruo_id` (`ID_Monstruo`),
+  ADD KEY `material_id` (`ID_Material`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `equipamiento`
+-- AUTO_INCREMENT de la tabla `monstruo_habitat`
 --
-ALTER TABLE `equipamiento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT de la tabla `habitat`
---
-ALTER TABLE `habitat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT de la tabla `material`
---
-ALTER TABLE `material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
---
--- AUTO_INCREMENT de la tabla `material_equipamiento`
---
-ALTER TABLE `material_equipamiento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT de la tabla `monstruo`
---
-ALTER TABLE `monstruo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+ALTER TABLE `monstruo_habitat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `monstruo_material`
 --
 ALTER TABLE `monstruo_material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `arma`
---
-ALTER TABLE `arma`
-  ADD CONSTRAINT `arma_ibfk_1` FOREIGN KEY (`id`) REFERENCES `equipamiento` (`id`);
-
---
--- Filtros para la tabla `armadura`
---
-ALTER TABLE `armadura`
-  ADD CONSTRAINT `armadura_ibfk_1` FOREIGN KEY (`id`) REFERENCES `equipamiento` (`id`);
-
---
--- Filtros para la tabla `material_equipamiento`
---
-ALTER TABLE `material_equipamiento`
-  ADD CONSTRAINT `material_equipamiento_ibfk_1` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`),
-  ADD CONSTRAINT `material_equipamiento_ibfk_2` FOREIGN KEY (`equipamiento_id`) REFERENCES `equipamiento` (`id`);
-
---
 -- Filtros para la tabla `monstruo`
 --
 ALTER TABLE `monstruo`
-  ADD CONSTRAINT `monstruo_ibfk_1` FOREIGN KEY (`habitat_id`) REFERENCES `habitat` (`id`);
+  ADD CONSTRAINT `monstruo_ibfk_1` FOREIGN KEY (`ID_Familia`) REFERENCES `familia` (`ID_Familia`);
+
+--
+-- Filtros para la tabla `monstruo_habitat`
+--
+ALTER TABLE `monstruo_habitat`
+  ADD CONSTRAINT `monstruo_habitat_ibfk_1` FOREIGN KEY (`ID_Monstruo`) REFERENCES `monstruo` (`ID_Monstruo`),
+  ADD CONSTRAINT `monstruo_habitat_ibfk_2` FOREIGN KEY (`ID_Habitat`) REFERENCES `habitat` (`ID_Habitat`);
 
 --
 -- Filtros para la tabla `monstruo_material`
 --
 ALTER TABLE `monstruo_material`
-  ADD CONSTRAINT `monstruo_material_ibfk_1` FOREIGN KEY (`monstruo_id`) REFERENCES `monstruo` (`id`),
-  ADD CONSTRAINT `monstruo_material_ibfk_2` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`);
+  ADD CONSTRAINT `monstruo_material_ibfk_1` FOREIGN KEY (`ID_Monstruo`) REFERENCES `monstruo` (`ID_Monstruo`),
+  ADD CONSTRAINT `monstruo_material_ibfk_2` FOREIGN KEY (`ID_Material`) REFERENCES `material` (`ID_Material`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
