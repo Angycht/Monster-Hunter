@@ -1,7 +1,6 @@
 package com.monster.Monster.Hunter.web.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,62 +20,60 @@ import com.monster.Monster.Hunter.persistence.entities.Material;
 import com.monster.Monster.Hunter.service.MaterialService;
 
 @RestController
-@RequestMapping("/material")
+@RequestMapping("/materiales")
 public class MaterialController {
 
-	
 	@Autowired
 	private MaterialService materialService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Material>> listarMaterial(){
+	public ResponseEntity<List<Material>> listarMaterial() {
 		return ResponseEntity.ok(this.materialService.findAll());
 	}
-	
+
 	@GetMapping("/{idMaterial}")
-	public ResponseEntity<Material> getMaterialById(@PathVariable int idMaterial){
-		
-		if(!this.materialService.existById(idMaterial)) {
+	public ResponseEntity<Material> getMaterialById(@PathVariable int idMaterial) {
+
+		if (!this.materialService.existById(idMaterial)) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		return ResponseEntity.ok(this.materialService.findById(idMaterial).get());
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Material> crearMaterial(@RequestBody Material material){
+	public ResponseEntity<Material> crearMaterial(@RequestBody Material material) {
 		return new ResponseEntity<Material>(this.materialService.create(material), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/{idMaterial}")
-	public ResponseEntity<Material> actualizarMaterial(@PathVariable int idMaterial,@RequestBody Material material){
-		if(idMaterial != material.getId()) {
+	public ResponseEntity<Material> actualizarMaterial(@PathVariable int idMaterial, @RequestBody Material material) {
+		if (idMaterial != material.getId()) {
 			return ResponseEntity.badRequest().build();
 		}
-		if(!this.materialService.existById(idMaterial)) {
+		if (!this.materialService.existById(idMaterial)) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(this.materialService.save(material));
 	}
-	
+
 	@DeleteMapping("/{idMaterial}")
-	public ResponseEntity<Familia> eliminarMaterial(@PathVariable int idMaterial){
-		if(this.materialService.borrarId(idMaterial)) {
+	public ResponseEntity<Familia> eliminarMaterial(@PathVariable int idMaterial) {
+		if (this.materialService.borrarId(idMaterial)) {
 			return ResponseEntity.ok().build();
 		}
-		
+
 		return ResponseEntity.notFound().build();
 	}
-	
-	
+
 	@GetMapping("/buscar")
-	public ResponseEntity<List<Material>> buscar(@RequestParam String nombre){
+	public ResponseEntity<List<Material>> buscar(@RequestParam String nombre) {
 		return ResponseEntity.ok(this.materialService.empiezaPor(nombre));
 	}
-	 @PostMapping("/simular")
-	    public ResponseEntity<Map<String, Object>> simularCombate(
-	            @RequestParam int monsterId,
-	            @RequestParam int materialId) {
-	        return ResponseEntity.ok(materialService.simularCombate(monsterId, materialId));
-	    }
+
+	@PostMapping("/simular/{idMaterial}")
+	public ResponseEntity<String> simularCombate(@PathVariable int idMaterial) {
+
+		return ResponseEntity.ok(materialService.simularCombate(idMaterial));
+	}
 }

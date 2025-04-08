@@ -1,37 +1,58 @@
 package com.monster.Monster.Hunter.web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.monster.Monster.Hunter.service.dto.LoginDto;
-import com.monster.Monster.Hunter.web.config.JwtUtils;
+import com.monster.Monster.Hunter.service.AuthService;
+import com.monster.Monster.Hunter.service.dto.LoginUserDto;
+import com.monster.Monster.Hunter.service.dto.NewUserDto;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-	@Autowired
-	private AuthenticationManager autenticationManager;
-	@Autowired
-	private JwtUtils jwtUtils;
-	
-	@PostMapping("/login")
-	public ResponseEntity<Void> login (LoginDto loginDto){
-		
-		UsernamePasswordAuthenticationToken login=new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
-		org.springframework.security.core.Authentication authentication=this.autenticationManager.authenticate(login);
-		
-		if(authentication.isAuthenticated()) {
-			String jwt=this.jwtUtils.create(loginDto.getUsername());
-			return ResponseEntity.ok().header(org.springframework.http.HttpHeaders.AUTHORIZATION, jwt).build();
-		}else {
-			return ResponseEntity.badRequest().build();
-		}
-	}
-	
+    private final AuthService authService;
+    
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return ResponseEntity.badRequest().body("Revise sus credenciales");
+        }
+        try {
+            String jwt = authService.authenticate(loginUserDto.getUserName(), loginUserDto.getPassword());
+            return ResponseEntity.ok(jwt);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@Valid @RequestBody NewUserDto newUserDto, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return ResponseEntity.badRequest().body("Revise los campos");
+        }
+        try {
+            authService.registerUser(newUserDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Registrado");
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/check-auth")
+    public ResponseEntity<String> checkAuth(){
+            return ResponseEntity.ok().body("Autenticado");
+    }
 }

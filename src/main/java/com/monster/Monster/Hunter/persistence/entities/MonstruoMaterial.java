@@ -27,7 +27,6 @@ public class MonstruoMaterial {
 	@Column(columnDefinition = "INT", name = "ID_Material")
 	private int idMaterial;
 	
-	private int probabilidad;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_Monstruo", referencedColumnName = "ID_Monstruo", insertable = false, updatable = false)

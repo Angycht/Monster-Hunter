@@ -37,4 +37,6 @@ public class Material {
 	@OneToMany(mappedBy= "material")
 	@JsonIgnore
 	private List<MonstruoMaterial> monstruoMaterial;
+
+
 }
