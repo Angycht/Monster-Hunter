@@ -1,10 +1,13 @@
 package com.monster.Monster.Hunter.web.controller;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.monster.Monster.Hunter.persistence.entities.Habitat;
 import com.monster.Monster.Hunter.service.HabitatService;
+import com.monster.Monster.Hunter.service.dto.MonstruoDTO;
 
 @RestController
-@RequestMapping("/habitat")
+@RequestMapping("/habitats")
+@CrossOrigin(origins = "http://localhost:4200")
 public class HabitatController {
 	
 
@@ -30,7 +35,21 @@ public class HabitatController {
 	public ResponseEntity<List<Habitat>> listarHabitat(){
 		return ResponseEntity.ok(this.habitatService.findAll());
 	}
-	
+	  @GetMapping("/{id}/monstruos")
+	    public ResponseEntity<List<MonstruoDTO>> getMonstruosByHabitat(@PathVariable int id) {
+	        Optional<List<Habitat>> optionalHabitat = habitatService.buscarMonstruo(id);
+	        if (optionalHabitat.isEmpty()) {
+	            return ResponseEntity.notFound().build();
+	        }
+	        List<Habitat> habitat = optionalHabitat.get();
+
+	        // Extraer los monstruos a partir de la relación monstruoHabitats
+	        List<MonstruoDTO> monstruos = ((Habitat) habitat).getMonstruoHabitats().stream()
+	            .map(mh -> new MonstruoDTO(mh.getMonstruo().getId(),mh.getMonstruo().getNombre()))
+	            .collect(Collectors.toList());
+
+	        return ResponseEntity.ok(monstruos);
+	    }
 	@GetMapping("/{idHabitat}")
 	public ResponseEntity<Habitat> getHabitatById(@PathVariable int idHabitat){
 		

@@ -6,8 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.monster.Monster.Hunter.persistence.entities.Familia;
+import com.monster.Monster.Hunter.persistence.entities.Monstruo;
 import com.monster.Monster.Hunter.persistence.entities.MonstruoHabitat;
 import com.monster.Monster.Hunter.persistence.repository.MonstruoHabitatRepository;
+import com.monster.Monster.Hunter.service.dto.FamiliaDetalleDTO;
+import com.monster.Monster.Hunter.service.dto.MonstruoDTO;
 import com.monster.Monster.Hunter.service.dto.MonstruoHabitatDTO;
 import com.monster.Monster.Hunter.service.mappers.MonstruoHabitatMapper;
 
@@ -48,5 +52,6 @@ public class MonstruoHabitatService {
 		return false;
 		
 	}
+	
 
 }

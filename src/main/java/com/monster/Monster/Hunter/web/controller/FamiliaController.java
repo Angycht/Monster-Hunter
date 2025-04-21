@@ -1,10 +1,12 @@
 package com.monster.Monster.Hunter.web.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,22 +19,36 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.monster.Monster.Hunter.persistence.entities.Familia;
 import com.monster.Monster.Hunter.service.FamiliaService;
+import com.monster.Monster.Hunter.service.dto.FamiliaDetalleDTO;
+import com.monster.Monster.Hunter.service.dto.MonstruoDTO;
 
 
 @RestController
-@RequestMapping("/familia")
+@RequestMapping("/familias")
+@CrossOrigin(origins = "http://localhost:4200")
 public class FamiliaController {
 
 	
 
 	@Autowired
 	private FamiliaService familiaService;
+
 	
 	@GetMapping
 	public ResponseEntity<List<Familia>> listarFamilias(){
 		return ResponseEntity.ok(this.familiaService.findAll());
 	}
-	
+	@GetMapping("/{id}/monstruos")
+	public ResponseEntity<FamiliaDetalleDTO> getFamiliaDetalle(@PathVariable int id) {
+	    try {
+	        FamiliaDetalleDTO dto = familiaService.getFamiliaDetalle(id);
+	        return ResponseEntity.ok(dto);
+	    } catch (IllegalArgumentException e) {
+	        return ResponseEntity.notFound().build();
+	    } catch (Exception e) {
+	        return ResponseEntity.internalServerError().build();
+	    }
+	}
 	@GetMapping("/{idFamilia}")
 	public ResponseEntity<Familia> getFamiliaById(@PathVariable int idFamilia){
 		

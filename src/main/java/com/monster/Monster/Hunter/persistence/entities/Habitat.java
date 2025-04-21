@@ -32,7 +32,8 @@ public class Habitat {
 	private String descripcion;
 	@Column(columnDefinition = "VARCHAR", length = 255 , name = "Imagen")
 	private String imagen;
-	
+	@Column(columnDefinition = "VARCHAR", length = 255 , name = "Mapa")
+	private String mapa;
 	
 	@OneToMany(mappedBy= "habitat")
 	@JsonIgnore

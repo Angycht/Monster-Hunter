@@ -43,4 +43,7 @@ public class HabitatService {
 		return this.habitatRepository.findByNombreContaining(nombre);
 	}
 
+	public Optional<List<Habitat>> buscarMonstruo(int id){
+		return this.habitatRepository.findByIdWithMonstruos(id);
+	}
 }

@@ -30,7 +30,7 @@ public class Familia {
 	private String nombre;
 	@Column(columnDefinition = "TEXT", name = "Descripcion")
 	private String descripcion;
-	
+	private String imagen;
 	@OneToMany(mappedBy = "familia")
 	@JsonIgnore
 	private List<Monstruo> monstruos;

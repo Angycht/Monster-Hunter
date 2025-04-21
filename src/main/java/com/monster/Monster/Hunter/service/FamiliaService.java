@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.monster.Monster.Hunter.persistence.entities.Familia;
 import com.monster.Monster.Hunter.persistence.repository.FamiliaRepository;
+import com.monster.Monster.Hunter.service.dto.FamiliaDetalleDTO;
+import com.monster.Monster.Hunter.service.dto.MonstruoDTO;
 @Service
 public class FamiliaService {
 
@@ -43,5 +45,18 @@ public class FamiliaService {
 	public List<Familia> empiezaPor (String nombre){
 		return this.familiaRepository.findByNombreContaining(nombre);
 	}
-	
+	public FamiliaDetalleDTO getFamiliaDetalle(int id) {
+	    Familia familia = familiaRepository.findByIdWithMonstruos(id)
+	        .orElseThrow(() -> new IllegalArgumentException("Familia no encontrada"));
+
+	    return new FamiliaDetalleDTO(
+	        familia.getId(),
+	        familia.getNombre(),
+	        familia.getDescripcion(),
+	        familia.getImagen(),
+	        familia.getMonstruos().stream()
+	            .map(m -> new MonstruoDTO(m.getId(), m.getNombre()))
+	            .toList()
+	    );
+	}
 }

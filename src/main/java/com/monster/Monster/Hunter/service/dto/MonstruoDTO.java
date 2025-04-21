@@ -11,6 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MonstruoDTO {
 	
+	
+	 public MonstruoDTO(int id, String nombre) {
+	        this.id = id;
+	        this.nombre = nombre;
+	    }
 	private int id;
 	private String nombre;
 	private String descripcion;
