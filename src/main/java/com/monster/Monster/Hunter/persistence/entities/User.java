@@ -23,12 +23,12 @@ import lombok.Setter;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @NotBlank
     @Column(unique = true, nullable = false)
-    private String userName;
+    private String username;
 
     @NotBlank
     @Column(nullable = false)
@@ -38,8 +38,8 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    public User(String userName, String password, Role role) {
-        this.userName = userName;
+    public User(String username, String password, Role role) {
+        this.username = username;
         this.password = password;
         this.role = role;
     }

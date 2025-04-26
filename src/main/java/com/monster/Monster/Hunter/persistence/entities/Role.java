@@ -1,7 +1,5 @@
 package com.monster.Monster.Hunter.persistence.entities;
 
-import javax.management.relation.RoleList;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,5 +22,5 @@ public class Role {
     private Integer id;
 
     @Column(nullable = false)
-    private RoleList nombre;
+    private String nombre;
 }
