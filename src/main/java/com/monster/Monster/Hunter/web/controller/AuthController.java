@@ -45,18 +45,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody RegistroRequest loginRequest) {
-      
-
+        System.out.println("Intentando login con: " + loginRequest.getUsername() + " / " + loginRequest.getPassword());
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken( loginRequest.getUsername(), loginRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(
+                    loginRequest.getUsername(), loginRequest.getPassword()
+                )
             );
         } catch (AuthenticationException e) {
+            System.out.println("Error de autenticación: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
         }
 
         String token = jwtTokenUtil.generateToken(loginRequest.getUsername());
-
         return ResponseEntity.ok(token);
     }
 
