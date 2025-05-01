@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,7 +73,7 @@ public class MaterialController {
 	public ResponseEntity<List<Material>> buscar(@RequestParam String nombre) {
 		return ResponseEntity.ok(this.materialService.empiezaPor(nombre));
 	}
-
+	 @PreAuthorize("hasRole('3')")
 	@PostMapping("/simular/{idMaterial}")
 	public ResponseEntity<String> simularCombate(@PathVariable int idMaterial) {
 

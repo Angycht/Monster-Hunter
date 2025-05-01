@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.monster.Monster.Hunter.persistence.entities.Monstruo;
 import com.monster.Monster.Hunter.service.MonstruoService;
 import com.monster.Monster.Hunter.service.dto.MonstruoDTO;
+import com.monster.Monster.Hunter.service.dto.MonstruoMaterialDTO;
 
 @RestController
 @RequestMapping("/monstruos")
@@ -74,5 +76,13 @@ public class MonstruoController {
 	@GetMapping("/buscar")
 	public ResponseEntity<List<Monstruo>> buscar(@RequestParam String nombre){
 		return ResponseEntity.ok(this.monstruoService.empiezaPor(nombre));
+	}
+	
+	
+	@PostMapping("/simular/{idMonstruo}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<List<MonstruoMaterialDTO>> simularCombate(@PathVariable int idMonstruo) {
+	    List<MonstruoMaterialDTO> materiales = monstruoService.simularCombate(idMonstruo);
+	    return ResponseEntity.ok(materiales);
 	}
 }

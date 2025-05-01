@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
+	 CorsConfigurationSource corsConfigurationSource() {
 	    CorsConfiguration config = new CorsConfiguration();
 	    config.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Origen de Angular
 	    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
