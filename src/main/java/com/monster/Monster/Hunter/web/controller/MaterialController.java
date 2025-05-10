@@ -45,11 +45,13 @@ public class MaterialController {
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Material> crearMaterial(@RequestBody Material material) {
 		return new ResponseEntity<Material>(this.materialService.create(material), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{idMaterial}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Material> actualizarMaterial(@PathVariable int idMaterial, @RequestBody Material material) {
 		if (idMaterial != material.getId()) {
 			return ResponseEntity.badRequest().build();
@@ -61,6 +63,7 @@ public class MaterialController {
 	}
 
 	@DeleteMapping("/{idMaterial}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Familia> eliminarMaterial(@PathVariable int idMaterial) {
 		if (this.materialService.borrarId(idMaterial)) {
 			return ResponseEntity.ok().build();
@@ -73,10 +76,5 @@ public class MaterialController {
 	public ResponseEntity<List<Material>> buscar(@RequestParam String nombre) {
 		return ResponseEntity.ok(this.materialService.empiezaPor(nombre));
 	}
-	 @PreAuthorize("hasRole('3')")
-	@PostMapping("/simular/{idMaterial}")
-	public ResponseEntity<String> simularCombate(@PathVariable int idMaterial) {
-
-		return ResponseEntity.ok(materialService.simularCombate(idMaterial));
-	}
+	
 }

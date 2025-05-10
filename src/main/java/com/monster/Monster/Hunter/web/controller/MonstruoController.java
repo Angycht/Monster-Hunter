@@ -48,12 +48,14 @@ public class MonstruoController {
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
     public MonstruoDTO crearMonstruo(@RequestBody Monstruo monstruo,
                                         @RequestParam MultipartFile imagen) {
         return monstruoService.create( monstruo, imagen);
     }
 	
 	@PutMapping("/{idMonstruo}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MonstruoDTO> actualizarMonstruo(@PathVariable int idMonstruo,@RequestBody Monstruo monstruo){
 		if(idMonstruo != monstruo.getId()) {
 			return ResponseEntity.badRequest().build();
@@ -65,6 +67,7 @@ public class MonstruoController {
 	}
 	
 	@DeleteMapping("/{idMonstruo}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Monstruo> eliminarMonstruo(@PathVariable int idMonstruo){
 		if(this.monstruoService.borrarId(idMonstruo)) {
 			return ResponseEntity.ok().build();

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,11 +62,13 @@ public class HabitatController {
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Habitat> crearHabitat(@RequestBody Habitat habitat){
 		return new ResponseEntity<Habitat>(this.habitatService.create(habitat), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{idHabitat}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Habitat> actualizaHabitat(@PathVariable int idHabitat,@RequestBody Habitat habitat){
 		if(idHabitat != habitat.getId() ) {
 			return ResponseEntity.badRequest().build();
@@ -77,6 +80,7 @@ public class HabitatController {
 	}
 	
 	@DeleteMapping("/{idHabitat}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Habitat> eliminarHabitat(@PathVariable int idHabitat){
 		if(this.habitatService.borrarId(idHabitat)) {
 			return ResponseEntity.ok().build();

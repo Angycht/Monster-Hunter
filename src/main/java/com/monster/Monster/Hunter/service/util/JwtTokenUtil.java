@@ -15,15 +15,25 @@ public class JwtTokenUtil {
 
     private final long jwtExpirationMs = 1000 * 60 * 60 * 10;
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String role) { // Añade parámetro de rol
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", role) // Añade el claim del rol
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(secretKey)
                 .compact();
     }
 
+    // Método para obtener el rol del token
+    public String getRoleFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("role", String.class);
+    }
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()

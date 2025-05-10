@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,22 +46,29 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody RegistroRequest loginRequest) {
-        System.out.println("Intentando login con: " + loginRequest.getUsername() + " / " + loginRequest.getPassword());
         try {
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                    loginRequest.getUsername(), loginRequest.getPassword()
+                    loginRequest.getUsername(), 
+                    loginRequest.getPassword()
                 )
             );
+            
+            User user = userRepository.findByUsername(loginRequest.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+            
+            String token = jwtTokenUtil.generateToken(
+                user.getUsername(), 
+                user.getRole().getNombre() // Obtiene el nombre del rol
+            );
+            
+            return ResponseEntity.ok(token);
+            
         } catch (AuthenticationException e) {
-            System.out.println("Error de autenticación: " + e.getMessage());
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
         }
-
-        String token = jwtTokenUtil.generateToken(loginRequest.getUsername());
-        return ResponseEntity.ok(token);
     }
+
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {

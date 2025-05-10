@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,11 +45,13 @@ public class MonstruoHabitatController {
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MonstruoHabitatDTO> crearHabitat(@RequestBody MonstruoHabitat monstruoHabitat){
 		return new ResponseEntity<MonstruoHabitatDTO>(this.monstruohabitatService.create(monstruoHabitat), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{idMonstruoHabitat}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MonstruoHabitat> actualizaHabitat(@PathVariable int idMonstruoHabitat,@RequestBody MonstruoHabitat monstruoHabitat){
 		if(idMonstruoHabitat != monstruoHabitat.getIdMonstruo() ) {
 			return ResponseEntity.badRequest().build();
@@ -60,6 +63,7 @@ public class MonstruoHabitatController {
 	}
 	
 	@DeleteMapping("/{idMonstruoHabitat}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MonstruoHabitat> eliminarHabitat(@PathVariable int idMonstruoHabitat){
 		if(this.monstruohabitatService.borrarId(idMonstruoHabitat)) {
 			return ResponseEntity.ok().build();

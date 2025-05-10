@@ -1,11 +1,11 @@
 package com.monster.Monster.Hunter.web.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.monster.Monster.Hunter.persistence.entities.Familia;
 import com.monster.Monster.Hunter.service.FamiliaService;
 import com.monster.Monster.Hunter.service.dto.FamiliaDetalleDTO;
-import com.monster.Monster.Hunter.service.dto.MonstruoDTO;
 
 
 @RestController
@@ -60,11 +59,13 @@ public class FamiliaController {
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Familia> crearFamilia(@RequestBody Familia familia){
 		return new ResponseEntity<Familia>(this.familiaService.create(familia), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{idFamilia}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Familia> actualizarFamilia(@PathVariable int idFamilia,@RequestBody Familia familia){
 		if(idFamilia != familia.getId()) {
 			return ResponseEntity.badRequest().build();
@@ -76,6 +77,7 @@ public class FamiliaController {
 	}
 	
 	@DeleteMapping("/{idFamilia}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Familia> eliminarFamilia(@PathVariable int idFamilia){
 		if(this.familiaService.borrarId(idFamilia)) {
 			return ResponseEntity.ok().build();

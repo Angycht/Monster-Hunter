@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,11 +44,13 @@ public class MonstruoMaterialController {
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MonstruoMaterialDTO> crearMonstruoMaterial(@RequestBody MonstruoMaterial material){
 		return new ResponseEntity<MonstruoMaterialDTO>(this.monstruoMaterialService.create(material), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{idMonstruoMaterial}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MonstruoMaterial> actualizarMonstruoMaterial(@PathVariable int idMonstruoMaterial,@RequestBody MonstruoMaterial monstruoMaterial){
 		if(idMonstruoMaterial != monstruoMaterial.getIdMaterial() ) {
 			return ResponseEntity.badRequest().build();
@@ -59,6 +62,7 @@ public class MonstruoMaterialController {
 	}
 	
 	@DeleteMapping("/{idMonstruoMaterial}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MonstruoMaterial> eliminarMonstruoMaterial(@PathVariable int idMonstruoMaterial){
 		if(this.monstruoMaterialService.borrarId(idMonstruoMaterial)) {
 			return ResponseEntity.ok().build();
