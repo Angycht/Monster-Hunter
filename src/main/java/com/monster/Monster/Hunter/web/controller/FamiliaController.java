@@ -44,9 +44,7 @@ public class FamiliaController {
 	        return ResponseEntity.ok(dto);
 	    } catch (IllegalArgumentException e) {
 	        return ResponseEntity.notFound().build();
-	    } catch (Exception e) {
-	        return ResponseEntity.internalServerError().build();
-	    }
+	    } 
 	}
 	@GetMapping("/{idFamilia}")
 	public ResponseEntity<Familia> getFamiliaById(@PathVariable int idFamilia){

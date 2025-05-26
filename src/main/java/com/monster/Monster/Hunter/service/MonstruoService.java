@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.monster.Monster.Hunter.persistence.entities.Monstruo;
 import com.monster.Monster.Hunter.persistence.entities.MonstruoMaterial;
+import com.monster.Monster.Hunter.persistence.repository.FamiliaRepository;
 import com.monster.Monster.Hunter.persistence.repository.MonstruoRepository;
 import com.monster.Monster.Hunter.service.dto.MonstruoDTO;
 import com.monster.Monster.Hunter.service.dto.MonstruoMaterialDTO;
@@ -19,8 +19,10 @@ import com.monster.Monster.Hunter.service.mappers.MonstruoMapper;
 public class MonstruoService {
 
 	@Autowired
-
 	private MonstruoRepository monstruoRepository;
+	
+	@Autowired
+	private FamiliaRepository familiaRepository;
 
 	public List<MonstruoDTO> findAll() {
 		
@@ -41,14 +43,14 @@ public class MonstruoService {
 		return this.monstruoRepository.existsById(idMonstruo);
 	}
 
-	public MonstruoDTO create(Monstruo monstruo,MultipartFile imagen) {
+	public MonstruoDTO create(Monstruo monstruo) {
 		
-		
+		monstruo.setFamilia(familiaRepository.findById(monstruo.getFamiliaId()).orElse(null));
 		return MonstruoMapper.toDto(this.monstruoRepository.save(monstruo));
 	}
 
-	public MonstruoDTO save(Monstruo monstruo) {
-		return MonstruoMapper.toDto(this.monstruoRepository.save(monstruo));
+	public Monstruo save(Monstruo monstruo) {
+		return this.monstruoRepository.save(monstruo);
 	}
 
 	public boolean borrarId(int idMonstruo) {
@@ -66,7 +68,6 @@ public class MonstruoService {
 
 	}
 	public List<MonstruoMaterialDTO> simularCombate(int idMonstruo) {
-	    // Busca el monstruo
 	    Monstruo monstruo = monstruoRepository.findById(idMonstruo)
 	        .orElseThrow(() -> new RuntimeException("Monstruo no encontrado"));
 
@@ -76,19 +77,15 @@ public class MonstruoService {
 	        throw new RuntimeException("El monstruo no tiene materiales asociados");
 	    }
 
-	    // Decide cuántos materiales quieres soltar (por ejemplo, 3 al azar)
+	  
 	    int cantidad = Math.min(3, materiales.size());
 
-	    // Llena la lista copia con los DTOs de los materiales
 	    List<MonstruoMaterialDTO> copia = new ArrayList<>();
 	    for (MonstruoMaterial mat : materiales) {
-	        copia.add(new MonstruoMaterialDTO(mat)); // Ajusta el constructor según tu DTO
+	        copia.add(new MonstruoMaterialDTO(mat)); 
 	    }
 
-	    // Baraja la lista
 	    Collections.shuffle(copia);
-
-	    // Selecciona los primeros 'cantidad' materiales
 	    List<MonstruoMaterialDTO> resultado = new ArrayList<>();
 	    for (int i = 0; i < cantidad; i++) {
 	        resultado.add(copia.get(i));

@@ -27,71 +27,71 @@ import com.monster.Monster.Hunter.service.dto.MonstruoDTO;
 @RequestMapping("/habitats")
 @CrossOrigin(origins = "http://localhost:4200")
 public class HabitatController {
-	
 
 	@Autowired
 	private HabitatService habitatService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Habitat>> listarHabitat(){
+	public ResponseEntity<List<Habitat>> listarHabitat() {
 		return ResponseEntity.ok(this.habitatService.findAll());
 	}
-	  @GetMapping("/{id}/monstruos")
-	    public ResponseEntity<List<MonstruoDTO>> getMonstruosByHabitat(@PathVariable int id) {
-	        Optional<List<Habitat>> optionalHabitat = habitatService.buscarMonstruo(id);
-	        if (optionalHabitat.isEmpty()) {
-	            return ResponseEntity.notFound().build();
-	        }
-	        List<Habitat> habitat = optionalHabitat.get();
 
-	        // Extraer los monstruos a partir de la relación monstruoHabitats
-	        List<MonstruoDTO> monstruos = ((Habitat) habitat).getMonstruoHabitats().stream()
-	            .map(mh -> new MonstruoDTO(mh.getMonstruo().getId(),mh.getMonstruo().getNombre()))
-	            .collect(Collectors.toList());
-
-	        return ResponseEntity.ok(monstruos);
-	    }
-	@GetMapping("/{idHabitat}")
-	public ResponseEntity<Habitat> getHabitatById(@PathVariable int idHabitat){
-		
-		if(!this.habitatService.existById(idHabitat)) {
+	@GetMapping("/{id}/monstruos")
+	public ResponseEntity<List<MonstruoDTO>> getMonstruosByHabitat(@PathVariable int id) {
+		Optional<List<Habitat>> optionalHabitat = habitatService.buscarMonstruo(id);
+		if (optionalHabitat.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		
+		List<Habitat> habitat = optionalHabitat.get();
+
+		// sirve paracoger los monstruos a partir de la relación monstruoHabitats
+		List<MonstruoDTO> monstruos = ((Habitat) habitat).getMonstruoHabitats().stream()
+				.map(mh -> new MonstruoDTO(mh.getMonstruo().getId(), mh.getMonstruo().getNombre()))
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok(monstruos);
+	}
+
+	@GetMapping("/{idHabitat}")
+	public ResponseEntity<Habitat> getHabitatById(@PathVariable int idHabitat) {
+
+		if (!this.habitatService.existById(idHabitat)) {
+			return ResponseEntity.notFound().build();
+		}
+
 		return ResponseEntity.ok(this.habitatService.findById(idHabitat).get());
 	}
-	
+
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Habitat> crearHabitat(@RequestBody Habitat habitat){
+	public ResponseEntity<Habitat> crearHabitat(@RequestBody Habitat habitat) {
 		return new ResponseEntity<Habitat>(this.habitatService.create(habitat), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/{idHabitat}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Habitat> actualizaHabitat(@PathVariable int idHabitat,@RequestBody Habitat habitat){
-		if(idHabitat != habitat.getId() ) {
+	public ResponseEntity<Habitat> actualizaHabitat(@PathVariable int idHabitat, @RequestBody Habitat habitat) {
+		if (idHabitat != habitat.getId()) {
 			return ResponseEntity.badRequest().build();
 		}
-		if(!this.habitatService.existById(idHabitat)) {
+		if (!this.habitatService.existById(idHabitat)) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(this.habitatService.save(habitat));
 	}
-	
+
 	@DeleteMapping("/{idHabitat}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Habitat> eliminarHabitat(@PathVariable int idHabitat){
-		if(this.habitatService.borrarId(idHabitat)) {
+	public ResponseEntity<Habitat> eliminarHabitat(@PathVariable int idHabitat) {
+		if (this.habitatService.borrarId(idHabitat)) {
 			return ResponseEntity.ok().build();
 		}
-		
+
 		return ResponseEntity.notFound().build();
 	}
-	
-	
+
 	@GetMapping("/buscar")
-	public ResponseEntity<List<Habitat>> buscar(@RequestParam String nombre){
+	public ResponseEntity<List<Habitat>> buscar(@RequestParam String nombre) {
 		return ResponseEntity.ok(this.habitatService.empiezaPor(nombre));
 	}
 

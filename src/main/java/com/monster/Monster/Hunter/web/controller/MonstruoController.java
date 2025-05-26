@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.monster.Monster.Hunter.persistence.entities.Monstruo;
 import com.monster.Monster.Hunter.service.MonstruoService;
@@ -49,14 +48,13 @@ public class MonstruoController {
 	
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN')")
-    public MonstruoDTO crearMonstruo(@RequestBody Monstruo monstruo,
-                                        @RequestParam MultipartFile imagen) {
-        return monstruoService.create( monstruo, imagen);
+    public MonstruoDTO crearMonstruo(@RequestBody Monstruo monstruo) {
+        return monstruoService.create( monstruo);
     }
 	
 	@PutMapping("/{idMonstruo}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<MonstruoDTO> actualizarMonstruo(@PathVariable int idMonstruo,@RequestBody Monstruo monstruo){
+	public ResponseEntity<Monstruo> actualizarMonstruo(@PathVariable int idMonstruo,@RequestBody Monstruo monstruo){
 		if(idMonstruo != monstruo.getId()) {
 			return ResponseEntity.badRequest().build();
 		}

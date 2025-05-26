@@ -1,5 +1,6 @@
 package com.monster.Monster.Hunter.persistence.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,7 +36,8 @@ public class Monstruo {
 	private String partesRompibles;
 	@Column(columnDefinition = "VARCHAR", length = 255, name = "Imagen")
 	private String imagen;
-	
+	@Column( name = "ID_Familia")
+	private int familiaId;
 	
 	@ManyToOne
 	@JoinColumn(name="ID_Familia", referencedColumnName = "ID_Familia", insertable = false, updatable = false)
@@ -43,10 +45,9 @@ public class Monstruo {
 
 	@OneToMany(mappedBy = "monstruo")
 	@JsonIgnore
-	private List<MonstruoMaterial> monstruoMaterial;
+	private List<MonstruoMaterial> monstruoMaterial = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "monstruo")
 	@JsonIgnore
-	private List<MonstruoHabitat> monstruoHabitats;
-
+	private List<MonstruoHabitat> monstruoHabitats = new ArrayList<>();
 }

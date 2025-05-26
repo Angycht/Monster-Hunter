@@ -53,8 +53,8 @@ public class MonstruoHabitatController {
 	@PutMapping("/{idMonstruoHabitat}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MonstruoHabitat> actualizaHabitat(@PathVariable int idMonstruoHabitat,@RequestBody MonstruoHabitat monstruoHabitat){
-		if(idMonstruoHabitat != monstruoHabitat.getIdMonstruo() ) {
-			return ResponseEntity.badRequest().build();
+		if (idMonstruoHabitat != monstruoHabitat.getId()) {
+		    return ResponseEntity.badRequest().build();
 		}
 		if(!this.monstruohabitatService.existById(idMonstruoHabitat)) {
 			return ResponseEntity.notFound().build();

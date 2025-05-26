@@ -27,13 +27,16 @@ public class SecurityConfig {
     @Bean
      SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authz -> authz
-                		.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                		.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                		   .anyRequest().permitAll()
-                )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers(HttpMethod.GET, "/**").permitAll() // Todos los GET públicos
+                .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll() // Login/registro públicos
+                .requestMatchers(HttpMethod.POST, "/**").hasRole("ADMIN") // POST solo admin
+                .requestMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")  // PUT solo admin
+                .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN") // DELETE solo admin
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
