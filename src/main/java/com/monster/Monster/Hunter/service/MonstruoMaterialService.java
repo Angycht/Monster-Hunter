@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.monster.Monster.Hunter.persistence.entities.Material;
 import com.monster.Monster.Hunter.persistence.entities.MonstruoMaterial;
+import com.monster.Monster.Hunter.persistence.repository.MaterialRepository;
 import com.monster.Monster.Hunter.persistence.repository.MonstruoMaterialRepository;
 import com.monster.Monster.Hunter.service.dto.MonstruoMaterialDTO;
 import com.monster.Monster.Hunter.service.mappers.MonstruoMaterialMapper;
@@ -17,6 +19,12 @@ public class MonstruoMaterialService {
 	@Autowired
 	
 	private MonstruoMaterialRepository monstruoMaterialRepository;
+	
+	
+	@Autowired
+	
+	private MaterialRepository materialRepository;
+	
 	
 	public List<MonstruoMaterialDTO> findAll(){
 		
@@ -35,6 +43,9 @@ public class MonstruoMaterialService {
 		return this.monstruoMaterialRepository.existsById(idMonstruoMaterial);
 	}
 	public MonstruoMaterialDTO create(MonstruoMaterial monstruoMaterial) {
+		 MonstruoMaterial saved = monstruoMaterialRepository.save(monstruoMaterial);
+		 Material material = materialRepository.findById(saved.getIdMaterial()).orElse(null);
+		    saved.setMaterial(material);
 		monstruoMaterial=this.monstruoMaterialRepository.save(monstruoMaterial);
 		return MonstruoMaterialMapper.toDto(monstruoMaterial);
 	}

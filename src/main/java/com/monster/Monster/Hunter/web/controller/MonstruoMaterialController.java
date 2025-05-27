@@ -52,9 +52,9 @@ public class MonstruoMaterialController {
 	@PutMapping("/{idMonstruoMaterial}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MonstruoMaterial> actualizarMonstruoMaterial(@PathVariable int idMonstruoMaterial,@RequestBody MonstruoMaterial monstruoMaterial){
-		if(idMonstruoMaterial != monstruoMaterial.getIdMaterial() ) {
-			return ResponseEntity.badRequest().build();
-		}
+		 if (idMonstruoMaterial != monstruoMaterial.getId()) {
+		        return ResponseEntity.badRequest().build();
+		    }
 		if(!this.monstruoMaterialService.existById(idMonstruoMaterial)) {
 			return ResponseEntity.notFound().build();
 		}
