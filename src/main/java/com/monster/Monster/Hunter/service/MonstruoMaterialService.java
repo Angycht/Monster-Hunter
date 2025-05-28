@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.monster.Monster.Hunter.persistence.entities.Material;
+import com.monster.Monster.Hunter.persistence.entities.Monstruo;
 import com.monster.Monster.Hunter.persistence.entities.MonstruoMaterial;
 import com.monster.Monster.Hunter.persistence.repository.MaterialRepository;
 import com.monster.Monster.Hunter.persistence.repository.MonstruoMaterialRepository;
+import com.monster.Monster.Hunter.persistence.repository.MonstruoRepository;
 import com.monster.Monster.Hunter.service.dto.MonstruoMaterialDTO;
 import com.monster.Monster.Hunter.service.mappers.MonstruoMaterialMapper;
 
@@ -24,6 +26,10 @@ public class MonstruoMaterialService {
 	@Autowired
 	
 	private MaterialRepository materialRepository;
+	
+@Autowired
+	
+	private MonstruoRepository monstruoRepository;
 	
 	
 	public List<MonstruoMaterialDTO> findAll(){
@@ -43,11 +49,18 @@ public class MonstruoMaterialService {
 		return this.monstruoMaterialRepository.existsById(idMonstruoMaterial);
 	}
 	public MonstruoMaterialDTO create(MonstruoMaterial monstruoMaterial) {
-		 MonstruoMaterial saved = monstruoMaterialRepository.save(monstruoMaterial);
-		 Material material = materialRepository.findById(saved.getIdMaterial()).orElse(null);
-		    saved.setMaterial(material);
-		monstruoMaterial=this.monstruoMaterialRepository.save(monstruoMaterial);
-		return MonstruoMaterialMapper.toDto(monstruoMaterial);
+	    // Guarda la relación (solo con los IDs)
+	    MonstruoMaterial saved = monstruoMaterialRepository.save(monstruoMaterial);
+
+	    // Carga y asigna el monstruo y el material completos SOLO para el mapeo a DTO
+	    Monstruo monstruo = monstruoRepository.findById(saved.getIdMonstruo()).orElse(null);
+	    Material material = materialRepository.findById(saved.getIdMaterial()).orElse(null);
+
+	    saved.setMonstruo(monstruo);
+	    saved.setMaterial(material);
+
+	    // Mapea a DTO (el mapper debe ser seguro ante nulos)
+	    return MonstruoMaterialMapper.toDto(saved);
 	}
 	public MonstruoMaterial save(MonstruoMaterial monstruoMaterial) {
 		return this.monstruoMaterialRepository.save(monstruoMaterial);

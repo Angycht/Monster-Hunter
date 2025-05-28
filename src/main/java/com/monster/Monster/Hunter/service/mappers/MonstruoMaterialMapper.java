@@ -15,6 +15,9 @@ public class MonstruoMaterialMapper {
 		 if (dto.getImagen() != null) {
 		        dto.setImagen(material.getMaterial().getImagen());
 		    }
+		 if (dto.getNombreMonstruo() != null) {
+		        dto.setNombreMonstruo(material.getMonstruo().getNombre());
+		    }
 		return dto;
 	}
 
