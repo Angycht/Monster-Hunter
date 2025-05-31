@@ -38,20 +38,18 @@ public class HabitatController {
 
 	@GetMapping("/{id}/monstruos")
 	public ResponseEntity<List<MonstruoDTO>> getMonstruosByHabitat(@PathVariable int id) {
-		Optional<List<Habitat>> optionalHabitat = habitatService.buscarMonstruo(id);
-		if (optionalHabitat.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		List<Habitat> habitat = optionalHabitat.get();
+	    Optional<List<Habitat>> optionalHabitat = habitatService.buscarMonstruo(id);
+	    if (optionalHabitat.isEmpty() || optionalHabitat.get().isEmpty()) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    Habitat habitat = optionalHabitat.get().get(0); // Toma el primer hábitat
 
-		// sirve paracoger los monstruos a partir de la relación monstruoHabitats
-		List<MonstruoDTO> monstruos = ((Habitat) habitat).getMonstruoHabitats().stream()
-				.map(mh -> new MonstruoDTO(mh.getMonstruo().getId(), mh.getMonstruo().getNombre()))
-				.collect(Collectors.toList());
+	    List<MonstruoDTO> monstruos = habitat.getMonstruoHabitats().stream()
+	        .map(mh -> new MonstruoDTO(mh.getMonstruo().getId(), mh.getMonstruo().getNombre()))
+	        .collect(Collectors.toList());
 
-		return ResponseEntity.ok(monstruos);
+	    return ResponseEntity.ok(monstruos);
 	}
-
 	@GetMapping("/{idHabitat}")
 	public ResponseEntity<Habitat> getHabitatById(@PathVariable int idHabitat) {
 

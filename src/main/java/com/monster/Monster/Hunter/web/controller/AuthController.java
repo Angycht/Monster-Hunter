@@ -1,5 +1,5 @@
 package com.monster.Monster.Hunter.web.controller;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,59 +23,45 @@ import com.monster.Monster.Hunter.service.util.JwtTokenUtil;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserRepository userRepository;
-    private RoleRepository roleRepository;
+	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
+	private final AuthenticationManager authenticationManager;
+	private final JwtTokenUtil jwtTokenUtil;
+	private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private  AuthenticationManager authenticationManager;
+	public AuthController(UserRepository userRepository, RoleRepository roleRepository,
+			AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, PasswordEncoder passwordEncoder) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.authenticationManager = authenticationManager;
+		this.jwtTokenUtil = jwtTokenUtil;
+		this.passwordEncoder = passwordEncoder;
+	}
 
-    @Autowired
-    private  JwtTokenUtil jwtTokenUtil;
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody RegistroRequest loginRequest) {
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-    @Autowired
-    private  PasswordEncoder passwordEncoder;
+			User user = userRepository.findByUsername(loginRequest.getUsername())
+					.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
+			String token = jwtTokenUtil.generateToken(user.getUsername(), user.getRole().getNombre());
 
-    AuthController(UserRepository userRepository,RoleRepository roleRepository,AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil) {
-        this.userRepository = userRepository;
-        this.roleRepository=roleRepository;
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenUtil = jwtTokenUtil;
-    }
+			return ResponseEntity.ok(token);
 
+		} catch (AuthenticationException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+		}
+	}
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody RegistroRequest loginRequest) {
-        try {
-            authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                    loginRequest.getUsername(), 
-                    loginRequest.getPassword()
-                )
-            );
-            
-            User user = userRepository.findByUsername(loginRequest.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
-            
-            String token = jwtTokenUtil.generateToken(
-                user.getUsername(), 
-                user.getRole().getNombre() // Obtiene el nombre del rol
-            );
-            
-            return ResponseEntity.ok(token);
-            
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
-        }
-    }
-
-
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role defaultRole = roleRepository.findById(3).orElseThrow(() -> new RuntimeException("Rol no encontrado"));
-        user.setRole(defaultRole);
-         userRepository.save(user); 
-        return ResponseEntity.ok("Usuario registrado exitosamente");
-    }
+	@PostMapping("/register")
+	public ResponseEntity<String> register(@RequestBody User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		Role defaultRole = roleRepository.findById(3).orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+		user.setRole(defaultRole);
+		userRepository.save(user);
+		return ResponseEntity.ok("Usuario registrado exitosamente");
+	}
 }
